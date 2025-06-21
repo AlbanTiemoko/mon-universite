@@ -1,0 +1,140 @@
+.align-baseline
+{
+    text-decoration: none;
+    color: white;
+}
+
+.align-baseline:hover
+{
+    text-decoration: none;
+    color: white;
+}
+
+.btn-outline-warning:hover
+{
+    background-color:orange;
+    color: white;
+}
+
+.btn-block
+{
+    background-color: orange;
+    border: none;
+}
+
+.btn-block:hover
+{
+    background-color: orange;
+}
+
+.bg-warning
+{
+    background-color: orange !important;
+    color: white !important;
+}
+
+.header_img
+{
+    background-image: url("images/HEADER\ IMG\ PRESENTATION.png");
+}
+
+.text_header
+{
+    text-decoration: none !important;
+    color: white !important;
+}
+
+.text_header:hover
+{
+    color: red !important;
+}
+
+.text_info
+{
+    color: white !important;
+    background-color: green !important;
+    text-decoration: none !important;
+}
+
+.text_filière
+{
+    color: black !important;
+}
+
+.text_filière:hover
+{
+    color: white !important;
+    background-color: green !important;
+}
+
+.sidebar
+{   
+    background-color: white !important;
+    padding-right: 25px !important;
+    text-align: center !important;
+}
+
+.banner_sidebar2
+{
+    margin-top: 25px !important;
+}
+
+.footer_list
+{
+    text-decoration: none !important;
+    color: black !important;
+    list-style: none !important;
+    font-weight: lighter !important;
+}
+
+.fa-facebook-square, .fa-linkedin-square
+{
+    font-size: 25px !important;
+    color: black !important;
+}
+
+.mail
+{
+    font-size: 14px !important;
+}
+
+.banner_sidebar2
+{
+    margin-bottom: 10px !important;
+}
+
+.star-rating {
+    direction: rtl;
+    display: inline-block;
+    font-size: 2rem;
+    position: relative;
+    width: 10em;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    color: #ddd;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.star-rating label:before {
+    content: '★';
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f5b301;
+}
+
+.user-review {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}

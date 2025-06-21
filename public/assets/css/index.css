@@ -1,0 +1,191 @@
+.align-baseline
+{
+    text-decoration: none;
+    color: white;
+}
+
+.montserrat-unique {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400; /* Remplacez par le poids souhaité, par exemple 400 pour regular */
+    font-style: normal;
+}
+
+.align-baseline:hover
+{
+    text-decoration: none;
+    color: white;
+}
+
+.btn-outline-warning:hover
+{
+    background-color:orange;
+    color: white;
+}
+
+.btn-lg:hover{
+    background-color:orange;
+    color: white;
+}
+
+.btn-block
+{
+    background-color: orange;
+    border: none;
+}
+
+.btn-block:hover
+{
+    background-color: orange;
+}
+
+.image-container {
+    width: 100%;
+    max-width: 750px; /* Vous pouvez ajuster cette valeur */
+    border: 1px solid #ddd; /* Juste pour la visualisation */
+    padding: 10px;
+}
+
+.bg-warning
+{
+    background-color: orange !important;
+    color: white !important;
+}
+
+.fa-facebook-square, .fa-linkedin-square
+{
+    font-size: 25px !important;
+    color: black !important;
+}
+
+.mail
+{
+    font-size: 14px !important;
+}
+
+.bg-article
+{
+    background-color: rgba(229, 228, 226, 1) !important;
+}
+
+.footer_list
+{
+    text-decoration: none !important;
+    color: black !important;
+    list-style: none !important;
+    font-weight: lighter !important;
+}
+
+.sidebar
+{   
+    margin-top: 35px !important;
+    background-color: white !important;
+    padding-right: 25px !important;
+    text-align: center !important;
+}
+
+.banner_sidebar2
+{
+    margin-top: 25px !important;
+}
+
+.colonne1
+{
+    width: 225px;
+    height: 43px;
+    padding-left: 10px;
+}
+
+.colonne2
+{
+    width: 350px;
+    height: 43px;
+    padding-left: 10px;
+}
+
+.colonne3
+{
+    width: 250px;
+    height: 43px;
+    padding-left: 10px;
+    margin-left: 130px;
+}
+
+.search
+{
+    width: 200px;
+    height: 43px;
+    margin-left: 50px;
+}
+
+.mt-5
+{
+    margin-top: 180px !important;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+  }
+
+h1, h2, h3, h4, h5, h6{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+}
+
+.line-height-reduced {
+    line-height: 0.1; /* Ajustez cette valeur selon vos besoins */
+}
+
+.school{
+    background-image: url("/assets/Images/femme.jpg") !important;
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.femme {
+    background-image: url("/assets/Images/femme.jpg") !important;
+    background-size: cover; /* Assure que l'image couvre tout l'élément */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    height: 80vh; /* Hauteur de l'élément en fonction de la hauteur de la fenêtre */
+    width: 100%; /* Largeur de l'élément à 100% de son conteneur */
+}
+
+.container-fluid {
+    padding: 0; /* Supprime les espaces de padding pour un affichage plein écran */
+}
+
+.gradute{
+    background-color: rgba(217, 221, 219, 0.212) !important;
+    width: 100%;
+}
+
+.vert{
+    background-color: rgba(0, 128, 0, 0.58);
+    color: white;
+}
+
+.orange{
+    background-color: rgba(255, 166, 0, 0.508);
+}
+
+.etudiante {
+    background-image: url("/assets/Images/etudiante.jpg") !important;
+    background-size: cover; /* Assure que l'image couvre tout l'élément */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    height: 50vh; /* Hauteur de l'élément en fonction de la hauteur de la fenêtre */
+    width: 100%; /* Largeur de l'élément à 100% de son conteneur */
+}
+
+.stats {
+    background-color: transparent; /* Rend le fond initialement transparent */
+    transition: background-color 0.3s ease; /* Ajoute une transition fluide */
+    border: 1px solid #ddd; /* Juste pour la visualisation */
+    color: orange;
+}
+
+.stats:hover {
+    background-color: white; /* Couleur de fond blanche au survol */
+}
