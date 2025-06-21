@@ -26,3 +26,5 @@ Route::get('/toutes-filieres-etablissement', [App\Http\Controllers\AcceuilContro
 Route::get('/description-etablissement', [App\Http\Controllers\AcceuilController::class, 'description_school'])->name('description.school');
 Route::get('/inscription', [App\Http\Controllers\AcceuilController::class, 'inscription'])->name('inscription');
 
+/**Tableaud de bord Admin */
+
