@@ -35,4 +35,9 @@ class AcceuilController extends Controller
     {
         return view("connexion_etudiant");
     }
+
+    public function password_forget()
+    {
+        return view("connexion_etudiant");
+    }
 }
