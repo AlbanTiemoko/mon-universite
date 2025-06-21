@@ -218,8 +218,8 @@
                   </div>
                   <div class="col-md-7 ml-5 pl-5 pt-1 col-sm-12">
                       <p>Ville: <strong> Abidjan</strong> <br> Adresse: <strong> Cococdy, Cité des Arts Rue C42</strong> <br>Numéro téléphone: <strong> (225) 07 224 878 66 / 07 470 358 34</strong></p>
-                      <a href="filieres_school.html" type="button" class="btn btn-primary btn-sm orange font-weight-bold">VOIR TOUTES LES FILIERES</a>
-                      <a href="presentation_school.html" type="button" class="btn btn-primary btn-sm green font-weight-bold">DETAILS DE L'UNIVERSITE</a>
+                      <a href="{{ route('filieres.school') }}" type="button" class="btn btn-primary btn-sm orange font-weight-bold">VOIR TOUTES LES FILIERES</a>
+                      <a href="{{ route('description.school') }}" type="button" class="btn btn-primary btn-sm green font-weight-bold">DETAILS DE L'UNIVERSITE</a>
                 </div>   
               </div>
           </div>

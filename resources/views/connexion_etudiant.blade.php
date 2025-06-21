@@ -60,10 +60,10 @@
                     </form>
                 </div>
                 <div class="text-center mb-3">
-                    <a href="password_forget.html" class="password font-weight-bold">Mot de passe oublié ?</a>
+                    <a href="{{ route('password.forget') }}" class="password font-weight-bold">Mot de passe oublié ?</a>
                   </div>
                   <div class="text-center mb-3">
-                   <span class="password font-weight-bold">Pas de compte ? </span> <a href="inscription_etudiant.html" class="password font-weight-bold">Inscrivez-vous maintenant</a>
+                   <span class="password font-weight-bold">Pas de compte ? </span> <a href="{{ route('inscription.etudiant') }}" class="password font-weight-bold">Inscrivez-vous maintenant</a>
                   </div>
             </div>
             <div class="col-md-3">

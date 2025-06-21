@@ -9,7 +9,7 @@
               </div>
               <div class="col d-flex align-items-center justify-content-center">
                     <a class="btn btn-outline-warning bg-warning font-weight-bold mr-4" href="{{ route('student.connexion') }}">ESPACE ETUDIANT</a>
-                    <a class="btn btn-outline-white bg-white text-dark font-weight-bold" href="etablissement_connexion.html">ESPACE ETABLISSEMENT</a>
+                    <a class="btn btn-outline-white bg-white text-dark font-weight-bold" href="{{ route('etablissement.connexion') }}">ESPACE ETABLISSEMENT</a>
               </div>
           </div>
       </div>
