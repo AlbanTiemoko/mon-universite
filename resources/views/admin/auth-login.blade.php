@@ -38,7 +38,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="text-dark text-center p-3">
-                                            <h5 class="text-dark">Bievenue !</h5>
+                                            <h5 class="text-dark">Bienvenue !</h5>
                                             <p>Veillez-vous connectez pour accéder au tableau de bord.</p>
                                         </div>
                                     </div>

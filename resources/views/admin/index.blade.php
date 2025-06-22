@@ -27,6 +27,7 @@
         <!-- App Css-->
         <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/index.css">
         <link rel="stylesheet" href="{{asset("assets/css/header-fixed.css")}}">
 
     </head>
@@ -47,7 +48,7 @@
                         <div class="row">
                             @include('components.sidebar')
                             <!-- start page title -->
-                                <div class="col-md-10 mt-5">
+                                <div class="col-md-10 mt-4">
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                                         <h4 class="mb-sm-0 font-size-18">TABLEAU DE BORD</h4>
                                     </div>
