@@ -1,0 +1,41 @@
+/* Style the navigation bar */
+.navbar {
+    width: 100%;
+  }
+  
+  /* Navbar links */
+  .navbar a {
+    text-align: center;
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  /* Couleur principal du Logo */
+  .bg-warning {
+background-color: #f97f0c !important;
+  }
+
+/* deuxieme couleur du Logo */
+.bg-info {
+        background-color: #c8ddec36 !important;
+    }
+
+    .link {
+        color: black !important;
+    }
+
+    /* effet survol des elements du sidebar */
+    .link :hover {
+        text-decoration : underline !important; 
+    } 
+
+    .tiers :hover {
+      text-decoration : underline !important; 
+  } 
+
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+      }

@@ -107,7 +107,7 @@
                 
                   <div class="row mb-5">
                       <div class="col text-center">
-                          <a href="#" class="btn btn-primary mr-3">TELECHARGER LA BROCHURE</a> <a href="filieres_school.html" class="btn btn-danger ml-5">TOUTES LES FILIERES DE EDHEC</a>
+                          <a href="#" class="btn btn-primary mr-3">TELECHARGER LA BROCHURE</a> <a href="{{ route('filieres.school') }}" class="btn btn-danger ml-5">TOUTES LES FILIERES DE EDHEC</a>
                       </div>
                   </div>
                   <div class="row">

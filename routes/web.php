@@ -27,4 +27,5 @@ Route::get('/description-etablissement', [App\Http\Controllers\AcceuilController
 Route::get('/inscription', [App\Http\Controllers\AcceuilController::class, 'inscription'])->name('inscription');
 
 /**Tableaud de bord Admin */
-
+Route::get('/tableau-de-bord', [App\Http\Controllers\DashboardController::class, 'accueil'])->name('dashboard');
+Route::get('/connexion', [App\Http\Controllers\DashboardController::class, 'connexion'])->name('connexion');
