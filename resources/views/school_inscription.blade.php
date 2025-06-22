@@ -176,7 +176,7 @@
                         <option>Transport et Logistique</option>
                         <option>Gestion des Projets</option>
                         <option>Gestion des Ressources Humaines</option>
-                      </select>
+                    </select>
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="exampleFormControlSelect2">Choisissez votre université(*)</label>

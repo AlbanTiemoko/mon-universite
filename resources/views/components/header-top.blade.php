@@ -33,8 +33,8 @@
 
                     </div>
                     <div class="d-flex align-items-center">
-                        <h3 class="text-center text-white text-uppercase me-2">BIENVENU SUR TABLEAU DE BORD</h3>
-                        <div class="text-wrap text-white" style="width: 6rem;">V. {{ config('app.version') }}</div>
+                        <h3 class="text-center text-white text-uppercase me-2">BIENVENU SUR VOTRE TABLEAU DE BORD</h3>
+                        <div class="text-wrap text-white" style="width: 6rem;"></div>
                     </div>
                     <div class="d-flex">
 

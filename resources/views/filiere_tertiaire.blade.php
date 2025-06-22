@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" sizes="114x114" href="/assets/FAVICON/Appl Touche 114X114.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/assets/FAVICON/Appl Touche 114X114.png">
     <link rel="icon" href="/assets/FAVICON/Appl Touche 152X152.png">
-    <link rel="shortcut icon" href="/assets/Flaticon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/FAVICON/Flaticon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/filieres.css">
     <link rel="stylesheet" href="/assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

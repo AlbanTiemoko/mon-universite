@@ -7,31 +7,71 @@
             </p>
         </a>
 
-        <a href="{{ route('dashboard') }}" class="link {{ Route::is('dashboard') ? 'text-primary' : '' }}">
-            <p class="font-weight-bold h6 {{ Route::is('dashboard') ? 'text-primary' : '' }}">
+        <a href="{{ route('statistique.etablissement') }}" class="link {{ Route::is('statistique.etablissement') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('statistique.etablissement') || route::is('nouvel.etablissement') || Route::is('liste.etablissement') ? 'text-primary' : '' }}">
                 <i class="bx bx-layout pr-2 pb-1"></i> Etablissements
             </p>
         </a>
-        <a href="#" class="link"><h6 class="pb-1">Nouveau</h6>
-        <a href="#" class="link"><h6 class="pb-3">Liste</h6>
+        <a href="{{ route('nouvel.etablissement') }}" class="link {{ Route::is('nouvel.etablissement') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('nouvel.etablissement') ? 'text-primary' : '' }}">Nouveau</h6>
+        </a>
+        <a href="{{ route('liste.etablissement') }}" class="link {{ Route::is('liste.etablissement') ? 'text-primary' : '' }}">
+            <h6 class="pb-3 {{ Route::is('liste.etablissement') ? 'text-primary' : '' }}">Liste</h6>
+        </a>
 
-        <a href="#" class="link"><p class="font-weight-bold h6"><i class="bx bx-file pr-2 pb-1"></i> Filiers</p></a>
-        <a href="#" class="link"><h6 class="pb-1">Nouvelle filiere</h6>
-        <a href="#" class="link"><h6 class="pb-1">Liste</h6>
-        <a href="#" class="link"><h6 class="pb-3">Tags/Type</h6>
+        <a href="{{ route('liste.filiere') }}" class="link {{ Route::is('liste.filiere') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('liste.filiere') || Route::is('nouvelle.filiere') || Route::is('type.filiere.liste') || Route::is('type.filiere.nouveau') ? 'text-primary' : '' }}">
+                <i class="bx bx-file pr-2 pb-1"></i> Filieres
+            </p>
+        </a>
+        <a href="{{ route('nouvelle.filiere') }}" class="link {{ Route::is('nouvelle.filiere') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('nouvelle.filiere') ? 'text-primary' : '' }}">Nouvelle filiere</h6>
+        </a>
+        <a href="{{ route('liste.filiere') }}" class="link {{ Route::is('liste.filiere') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('liste.filiere') ? 'text-primary' : '' }}">Liste</h6>
+        </a>
+        <a href="{{ route('type.filiere.liste') }}" class="link {{ Route::is('type.filiere.liste') ? 'text-primary' : '' }}">
+            <h6 class="pb-3 {{ Route::is('type.filiere.liste') ? 'text-primary' : '' }}">Tags/Type</h6>
+        </a>
 
-        <a href="#" class="link"><p class="font-weight-bold h6"><i class="bx bx-task pr-2 pb-1"></i> Inscriptions</p></a>
-        <a href="#" class="link"><h6 class="pb-3">Liste</h6>
+        <a href="{{ route('statistique.demande.inscription') }}" class="link {{ Route::is('statistique.demande.inscription') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('statistique.demande.inscription') || Route::is('liste.inscription') ? 'text-primary' : '' }}">
+                <i class="bx bx-task pr-2 pb-1"></i> Inscriptions
+            </p>
+        </a>
+        <a href="{{ route('liste.inscription') }}" class="link {{ Route::is('liste.inscription') ? 'text-primary' : '' }}">
+            <h6 class="pb-3 {{ Route::is('liste.inscription') ? 'text-primary' : '' }}">Liste</h6>
+        </a>
 
-        <a href="#" class="link"><p class="font-weight-bold h6"><i class="bx bx-chat pr-2 pb-1"></i> Avis etablissements</p></a>
-        <a href="#" class="link"><h6 class="pb-3">Liste</h6>
+        <a href="{{ route('stats.avis') }}" class="link {{ Route::is('stats.avis') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('stats.avis') || Route::is('liste.avis') ? 'text-primary' : '' }}">
+                <i class="bx bx-chat pr-2 pb-1"></i> Avis etablissements
+            </p>
+        </a>
+        <a href="{{ route('liste.avis') }}" class="link {{ Route::is('liste.avis') ? 'text-primary' : '' }}">
+            <h6 class="pb-3 {{ Route::is('liste.avis') ? 'text-primary' : '' }}">Liste</h6>
+        </a>
 
-        <a href="#" class="link"><p class="font-weight-bold h6"><i class="bx bx-detail pr-2 pb-1"></i> Newsletters</p></a>
-        <a href="#" class="link"><h6 class="pb-3">Liste</h6>
+        <a href="{{ route('newsletters') }}" class="link {{ Route::is('newsletters') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('newsletters') ? 'text-primary' : '' }}">
+                <i class="bx bx-detail pr-2 pb-1"></i> Newsletters
+            </p>
+        </a>
+        <a href="{{ route('newsletters') }}" class="link {{ Route::is('newsletters') ? 'text-primary' : '' }}">
+            <h6 class="pb-3 {{ Route::is('newsletters') ? 'text-primary' : '' }}">Liste</h6>
+        </a>
 
-        <a href="#" class="link"><p class="font-weight-bold h6"><i class="bx bxs-user-detail pr-2 pb-1"></i> Utilisateurs</p></a>
-        <a href="#" class="link"><h6 class="pb-1">Liste etudiants</h6>
-        <a href="#" class="link"><h6 class="pb-3">Liste administrateurs</h6>
+        <a href="{{ route('stats.users') }}" class="link {{ Route::is('stats.users') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('stats.users') || Route::is('liste.etudiants') || Route::is('liste.admin') || Route::is('nouveau.admin') ? 'text-primary' : '' }}">
+                <i class="bx bxs-user-detail pr-2 pb-1"></i> Utilisateurs
+            </p>
+        </a>
+        <a href="{{ route('liste.etudiants') }}" class="link {{ Route::is('liste.etudiants') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('liste.etudiants') ? 'text-primary' : '' }}">Liste etudiants</h6>
+        </a>
+        <a href="{{ route('liste.admin') }}" class="link {{ Route::is('liste.admin') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('liste.admin') ? 'text-primary' : '' }}">Liste administrateurs</h6>
+        </a>
         <a href="#" class="link"><h6></h6></a>
         
     </div>
