@@ -52,3 +52,9 @@ Route::get('/statistiques-utilisateurs', [App\Http\Controllers\DashboardControll
 Route::get('/liste-etudiants', [App\Http\Controllers\DashboardController::class, 'liste_etudiants'])->name('liste.etudiants');
 Route::get('/liste-administrateurs', [App\Http\Controllers\DashboardController::class, 'liste_admin'])->name('liste.admin');
 Route::get('/nouveau-administrateur', [App\Http\Controllers\DashboardController::class, 'nouveau_admin'])->name('nouveau.admin');
+
+Route::get('/nouvelle-ville', [App\Http\Controllers\DashboardController::class, 'nouvelle_ville'])->name('nouvelle.ville');
+Route::get('/liste-villes', [App\Http\Controllers\DashboardController::class, 'liste_ville'])->name('liste.ville');
+
+Route::get('/nouvelle-commune', [App\Http\Controllers\DashboardController::class, 'nouvelle_commune'])->name('nouvelle.commune');
+Route::get('/liste-communes', [App\Http\Controllers\DashboardController::class, 'liste_commune'])->name('liste.commune');

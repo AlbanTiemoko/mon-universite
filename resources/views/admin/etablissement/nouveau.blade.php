@@ -97,8 +97,30 @@
                                                                 </div>
                                                                 <div class="row form-group">
                                                                     <div class="col mb-4">
-                                                                        <label for="formGroupExampleInput">Adresse Geographique(*)</label>
-                                                                        <input type="text" class="form-control" placeholder="Bingerville, Paris Village" required>
+                                                                        <label for="formGroupExampleInput">Ville(*)</label>
+                                                                        <select class="form-control " required>
+                                                                            <option></option>
+                                                                            <option>Abidjan</option>
+                                                                            <option>Yamoussoukro</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col mb-4">
+                                                                        <label for="formGroupExampleInput">Commune/Quartier(*)</label>
+                                                                        <select class="form-control " required>
+                                                                            <option></option>
+                                                                            <option>Bingerville</option>
+                                                                            <option>Cocody</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col mb-4">
+                                                                        <label for="formGroupExampleInput">Rue(*)</label>
+                                                                        <input type="text" class="form-control" placeholder="Paris Village" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row form-group">
+                                                                    <div class="col mb-4">
+                                                                        <label for="formGroupExampleInput">URL Spot Publicitaire(Optionnel)</label>
+                                                                        <input type="website" class="form-control" placeholder="https://www.youtube.com/watch?v=9gAoG5juqTE&t=1455s" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row form-group">

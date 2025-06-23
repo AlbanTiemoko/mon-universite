@@ -6,7 +6,7 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar">
-                            <a href="index.html" class="logo logo-dark">
+                            <a href="{{ route('dashboard') }}" class="logo logo-dark">
                                 <span class="logo-sm">
                                     <img src="/assets/images/LOGO FOND BLANC_Plan de travail 1.png" alt="" height="22">
                                 </span>
@@ -15,7 +15,7 @@
                                 </span>
                             </a>
 
-                            <a href="index.html" class="logo logo-light">
+                            <a href="{{ route('dashboard') }}" class="logo logo-light">
                                 <span class="logo-sm">
                                     <img src="/assets/images/LOGO FOND BLANC_Plan de travail 1.png" alt="" height="22">
                                 </span>

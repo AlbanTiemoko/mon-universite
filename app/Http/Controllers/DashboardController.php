@@ -95,4 +95,24 @@ class DashboardController extends Controller
     {
         return view("admin.users.nouveau");
     }
+
+    public function liste_ville()
+    {
+        return view("admin.configuration.ville.liste");
+    }
+
+    public function nouvelle_ville()
+    {
+        return view("admin.configuration.ville.nouvelle");
+    }
+
+    public function nouvelle_commune()
+    {
+        return view("admin.configuration.commune.nouvelle");
+    }
+
+    public function liste_commune()
+    {
+        return view("admin.configuration.commune.liste");
+    }
 }

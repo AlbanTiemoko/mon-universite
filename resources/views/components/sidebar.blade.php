@@ -70,7 +70,19 @@
             <h6 class="pb-1 {{ Route::is('liste.etudiants') ? 'text-primary' : '' }}">Liste etudiants</h6>
         </a>
         <a href="{{ route('liste.admin') }}" class="link {{ Route::is('liste.admin') ? 'text-primary' : '' }}">
-            <h6 class="pb-1 {{ Route::is('liste.admin') ? 'text-primary' : '' }}">Liste administrateurs</h6>
+            <h6 class="pb-3 {{ Route::is('liste.admin') ? 'text-primary' : '' }}">Liste administrateurs</h6>
+        </a>
+
+        <a href="{{ route('liste.commune') }}" class="link {{ Route::is('liste.commune') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('liste.commune') || Route::is('liste.commune') || Route::is('nouvelle.ville') || Route::is('nouvelle.commune') ? 'text-primary' : '' }}">
+                <i class="bx bx-cog pr-2 pb-1"></i> Configuration
+            </p>
+        </a>
+        <a href="{{ route('liste.ville') }}" class="link {{ Route::is('liste.ville') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('liste.ville') ? 'text-primary' : '' }}">Villes</h6>
+        </a>
+        <a href="{{ route('liste.commune') }}" class="link {{ Route::is('liste.commune') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('liste.commune') ? 'text-primary' : '' }}">Communes/Quartiers</h6>
         </a>
         <a href="#" class="link"><h6></h6></a>
         
