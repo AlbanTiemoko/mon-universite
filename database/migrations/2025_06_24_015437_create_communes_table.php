@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('reference');
             $table->string('nom');
             $table->foreignId('ville_id')->constrained('villes');
+            $table->boolean('user_created_id')->nullable();
+            $table->boolean('user_updated_id')->nullable();
             $table->timestamps();
         });
     }

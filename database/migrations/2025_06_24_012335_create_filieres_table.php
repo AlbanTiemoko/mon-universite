@@ -23,6 +23,8 @@ return new class extends Migration
             $table->foreignId('mode_etude_id')->constrained('mode_etudes');
             $table->string('prise_en_charge');
             $table->foreignId('type_filiere_id')->constrained('type_filieres');
+            $table->boolean('user_created_id')->nullable();
+            $table->boolean('user_updated_id')->nullable();
             $table->timestamps();
         });
     }

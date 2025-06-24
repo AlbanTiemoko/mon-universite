@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('url_spot');
             $table->text('description');
             $table->boolean('etat');
+            $table->boolean('user_created_id')->nullable();
+            $table->boolean('user_updated_id')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('reference');
             $table->string('nom');
+            $table->boolean('user_created_id')->nullable();
+            $table->boolean('user_updated_id')->nullable();
             $table->timestamps();
         });
     }

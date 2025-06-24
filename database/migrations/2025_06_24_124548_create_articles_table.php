@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('image');
             $table->text('description');
             $table->date('date');
+            $table->boolean('user_created_id')->nullable();
+            $table->boolean('user_updated_id')->nullable();
             $table->timestamps();
         });
     }
