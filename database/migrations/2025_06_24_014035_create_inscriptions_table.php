@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('reference');
             $table->foreignId('user_id')->constrained('users');
-            $table->string('date_naissance');
+            $table->date('date_naissance');
             $table->string('genre');
             $table->string('ville');
             $table->string('commune_quartier');
             $table->string('telephone');
             $table->string('niveau_etude');
-            $table->string('annee_obtention_diplome');
+            $table->year('annee_obtention_diplome');
             $table->string('diplome_souhait');
             $table->foreignId('mode_etude_id')->constrained('mode_etudes');
             $table->string('domaine_etude');

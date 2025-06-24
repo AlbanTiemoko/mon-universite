@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('etablissement_id')->constrained('etablissements');
             $table->foreignId('ville_id')->constrained('villes');
-            $table->foreignId('commune_id')->constrained('communes');
+            $table->foreignId('commune_id')->nullable()->constrained('communes');
             $table->string('rue');
             $table->timestamps();
         });
