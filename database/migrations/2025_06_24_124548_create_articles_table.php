@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('reference');
             $table->string('titre');
+            $table->string('slug')->unique();
             $table->string('image');
             $table->text('description');
             $table->date('date');

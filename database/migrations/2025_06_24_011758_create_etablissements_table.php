@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('etablissements', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->string('reference');
             $table->string('nom');
             $table->string('numero');
