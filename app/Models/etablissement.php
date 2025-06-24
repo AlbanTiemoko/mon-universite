@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class etablissement extends Model
 {
+    protected $fillable = [
+        'reference', 'nom', 'numero', 'deuxieme_numero', 'email', 'logo', 'cover', 'longitude', 'latitude', 'url_spot',
+        'description', 'etat', 'user_updated_id',
+    ];
+    
     public function filieres(){
         return $this->hasMany(filiere::class);
     }
