@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('reference');
             $table->string('nom');
-            $table->string('inscription_id');
             $table->timestamps();
         });
     }

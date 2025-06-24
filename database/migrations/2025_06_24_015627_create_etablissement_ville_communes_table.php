@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('etablissement_ville_communes', function (Blueprint $table) {
             $table->id();
-            $table->string('etablissement_id');
-            $table->string('ville_id');
-            $table->string('commune_id');
+            $table->foreignId('etablissement_id')->constrained('etablissements');
+            $table->foreignId('ville_id')->constrained('villes');
+            $table->foreignId('commune_id')->constrained('communes');
             $table->string('rue');
             $table->timestamps();
         });

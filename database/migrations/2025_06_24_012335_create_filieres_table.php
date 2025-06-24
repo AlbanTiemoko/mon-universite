@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('filieres', function (Blueprint $table) {
             $table->id();
             $table->string('reference');
-            $table->string('etablissement_id');
+            $table->foreignId('etablissement_id')->constrained('etablissements');
             $table->string('nom');
             $table->string('diplome_final');
             $table->string('diplome_requis');
-            $table->string('duree');
-            $table->string('montant_annuel');
-            $table->string('mode_etude_id');
+            $table->tinyInteger('duree');
+            $table->decimal('montant_annuel', 10, 7);
+            $table->foreignId('mode_etude_id')->constrained('mode_etudes');
             $table->string('prise_en_charge');
-            $table->string('type_filiere_id');
+            $table->foreignId('type_filiere_id')->constrained('type_filieres');
             $table->timestamps();
         });
     }

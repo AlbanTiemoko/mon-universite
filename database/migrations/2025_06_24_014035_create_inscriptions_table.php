@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('inscriptions', function (Blueprint $table) {
             $table->id();
             $table->string('reference');
-            $table->string('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('date_naissance');
             $table->string('genre');
             $table->string('ville');
@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('niveau_etude');
             $table->string('annee_obtention_diplome');
             $table->string('diplome_souhait');
-            $table->string('mode_etude_id');
+            $table->foreignId('mode_etude_id')->constrained('mode_etudes');
             $table->string('domaine_etude');
-            $table->string('etablissement_id');
+            $table->foreignId('etablissement_id')->constrained('etablissements');
             $table->string('info_additionnel');
-            $table->string('etat');
+            $table->boolean('etat');
             $table->timestamps();
         });
     }

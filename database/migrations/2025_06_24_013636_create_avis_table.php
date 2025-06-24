@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('avis');
             $table->string('note');
-            $table->string('etablissement_id');
+            $table->foreignId('etablissement_id')->constrained('etablissements');
             $table->boolean('etat');
             $table->timestamps();
         });

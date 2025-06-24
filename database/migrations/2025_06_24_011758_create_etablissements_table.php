@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('reference');
             $table->string('nom');
             $table->string('numero');
-            $table->string('deuxieme_numero');
+            $table->string('deuxieme_numero')->nullable();
             $table->string('email');
             $table->string('logo');
-            $table->string('cover');
-            $table->string('longitude');
-            $table->string('lagitude');
+            $table->string('cover')->nullable();
+            $table->decimal('longitude', 10, 7);
+            $table->decimal('latitude', 10, 7);
             $table->string('url_spot');
             $table->text('description');
             $table->boolean('etat');

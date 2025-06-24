@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('reference');
             $table->string('nom');
-            $table->string('ville_id');
+            $table->foreignId('ville_id')->constrained('villes');
             $table->timestamps();
         });
     }
