@@ -115,4 +115,14 @@ class DashboardController extends Controller
     {
         return view("admin.configuration.commune.liste");
     }
+
+    public function liste_mode_etude()
+    {
+        return view("admin.configuration.etude.liste");
+    }
+
+    public function nouveau_etude()
+    {
+        return view("admin.configuration.etude.nouveau");
+    }
 }

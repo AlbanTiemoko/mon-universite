@@ -74,7 +74,7 @@
         </a>
 
         <a href="{{ route('liste.commune') }}" class="link {{ Route::is('liste.commune') ? 'text-primary' : '' }}">
-            <p class="font-weight-bold h6 {{ Route::is('liste.commune') || Route::is('liste.commune') || Route::is('nouvelle.ville') || Route::is('nouvelle.commune') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('liste.commune') || Route::is('liste.commune') || Route::is('nouvelle.ville') || Route::is('nouvelle.commune') || Route::is('liste.mode.etude') || Route::is('nouveau.mode') ? 'text-primary' : '' }}">
                 <i class="bx bx-cog pr-2 pb-1"></i> Configuration
             </p>
         </a>
@@ -83,6 +83,9 @@
         </a>
         <a href="{{ route('liste.commune') }}" class="link {{ Route::is('liste.commune') ? 'text-primary' : '' }}">
             <h6 class="pb-1 {{ Route::is('liste.commune') ? 'text-primary' : '' }}">Communes/Quartiers</h6>
+        </a>
+        <a href="{{ route('liste.mode.etude') }}" class="link {{ Route::is('liste.mode.etude') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('liste.mode.etude') ? 'text-primary' : '' }}">Mode etudes</h6>
         </a>
         <a href="#" class="link"><h6></h6></a>
         

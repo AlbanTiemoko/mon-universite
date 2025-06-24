@@ -58,3 +58,6 @@ Route::get('/liste-villes', [App\Http\Controllers\DashboardController::class, 'l
 
 Route::get('/nouvelle-commune', [App\Http\Controllers\DashboardController::class, 'nouvelle_commune'])->name('nouvelle.commune');
 Route::get('/liste-communes', [App\Http\Controllers\DashboardController::class, 'liste_commune'])->name('liste.commune');
+
+Route::get('/nouveau-mode', [App\Http\Controllers\DashboardController::class, 'nouveau_etude'])->name('nouveau.mode');
+Route::get('/liste-modes-etude', [App\Http\Controllers\DashboardController::class, 'liste_mode_etude'])->name('liste.mode.etude');

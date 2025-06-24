@@ -53,11 +53,12 @@
                                             <input type="text" class="form-control" id="username" placeholder="Enter username">
                                         </div>
                 
-                                        <div class="mb-3">
-                                            <label class="form-label">Mot de passe</label>
-                                            <div class="input-group auth-pass-inputgroup">
-                                                <input type="password" class="form-control" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
-                                            </div>
+                                        <div class="form-group mb-4 text-left position-relative">
+                                            <label for="exampleInputPassword1">Mot de passe</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>
+                                            <span class="toggle-password" onclick="togglePassword()" style="position:absolute; right:15px; top:38px; cursor:pointer;">
+                                            👁️
+                                            </span>
                                         </div>
                                         
                                         <div class="mt-3 d-grid">
@@ -95,5 +96,14 @@
         
     <!-- App js -->
     <script src="/panel/style/js/app.js"></script>
+
+    <script>
+    function togglePassword() {
+        const input = document.getElementById("exampleInputPassword1");
+        const type = input.getAttribute("type") === "password" ? "text" : "password";
+        input.setAttribute("type", type);
+    }
+    </script>
+    
   </body>
 </html>

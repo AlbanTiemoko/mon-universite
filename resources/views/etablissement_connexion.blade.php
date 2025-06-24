@@ -52,9 +52,12 @@
                             <label for="inputEmail4">Votre adresse email</label>
                             <input type="email" class="form-control " id="inputEmail4" placeholder="Adresse email" required>
                           </div>
-                          <div class="form-group mb-4 text-left">
+                          <div class="form-group mb-4 text-left position-relative">
                             <label for="exampleInputPassword1">Votre mot de passe</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>
+                            <span class="toggle-password" onclick="togglePassword()" style="position:absolute; right:15px; top:38px; cursor:pointer;">
+                              👁️
+                            </span>
                           </div>
                           <button type="submit" class="btn btn-primary font-weight-bold w-100 mb-4">SE CONNECTER</button>
                     </form>
@@ -134,5 +137,14 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+    function togglePassword() {
+        const input = document.getElementById("exampleInputPassword1");
+        const type = input.getAttribute("type") === "password" ? "text" : "password";
+        input.setAttribute("type", type);
+    }
+    </script>
+    
   </body>
 </html>
