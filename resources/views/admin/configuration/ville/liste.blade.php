@@ -4,7 +4,7 @@
     <head>
         
         <meta charset="utf-8" />
-        <title>Liste Commune</title>
+        <title>Liste Villes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -44,13 +44,23 @@
                             @include('components.sidebar')
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
+                                    @if(session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                            <button class="close font-weight-normal" data-dismiss="alert">x</button>
+                                        </div>
+                                    @endif
+
+                                    @if(session('error'))
+                                        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                                    @endif
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                        <h4 class="mb-sm-0 font-size-18">LISTE COMMUNE/QUARTIER</h4>
+                                        <h4 class="mb-sm-0 font-size-18">LISTE VILLES ({{ $villes->count() }})</h4>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="get">
+                                            <form action="{{ route('liste.ville') }}" method="GET">
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
@@ -58,11 +68,11 @@
                                                                 <div class="row form-group">
                                                                     <div class="col-md-4 mb-4">
                                                                         <label for="formGroupExampleInput">Reférence</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="query" class="form-control" value="{{ request('query') }}">
                                                                     </div>
                                                                     <div class="col-md-4 mb-4">
                                                                         <label for="formGroupExampleInput">Nom Ville</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="nom" class="form-control" value="{{ request('nom') }}">
                                                                     </div>
                                                                     <div class="col-md-4">
                                                                         <label for="formGroupExampleInput" class="text-white">Numero(s)(*)</label></br>
@@ -96,18 +106,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($villes as $ville)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$ville->reference}}</a> </td>
+                                                            <td>{{$ville->nom}}</td>
                                                             <td class="d-flex">
-                                                                <a href="#" class="link"><button type="button" class="btn btn-primary btn-sm mr-1"><i class="fa fa-eye text-white"></i></a></button>
-                                                                <a href="#" class="link"><button type="button" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pen text-white"></i></a></button>
-                                                                <form onsubmit="return confirmerSuppression()" action="#" method="POST">
+                                                                <a href="{{route('ville.edit', $ville->id)}}" class="link"><button type="submit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pen text-white"></i></a></button>
+                                                                <form onsubmit="return confirmerSuppression({{ $ville->id }})" action="{{ route('destroy.ville', $ville->id) }}" method="POST">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></button>
                                                                 </form>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -137,6 +148,15 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            function confirmerSuppression(id) {
+                var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette ville ?");
+                return confirmation;
+            }
+        </script>
     </body>
 
 </html>

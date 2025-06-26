@@ -62,26 +62,53 @@
                                         </div>
                                     </div>
 
+                                    <form action="{{ route('newsletters') }}" method="GET">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <div class="row form-group">
+                                                            <div class="col mb-4">
+                                                                <label for="formGroupExampleInput">Date</label>
+                                                                <input type="date" name="date" class="form-control" value="{{ request('date') }}">
+                                                            </div>
+                                                            <div class="col mb-4">
+                                                                <label for="formGroupExampleInput">Nom</label>
+                                                                <input type="text" name="name" class="form-control" value="{{ request('name') }}">
+                                                            </div>
+                                                            <div class="col mb-4">
+                                                                <label for="formGroupExampleInput">Email</label>
+                                                                <input type="text" name="email" class="form-control" value="{{ request('email') }}">
+                                                            </div>
+                                                            <div class="col">
+                                                                <label for="formGroupExampleInput" class="text-white">Numero(*)</label></br>
+                                                                <button type="submit" class="btn btn-primary font-weight-bold">RECHERCHER</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title mb-4">Listes des abonnés à la newsletter</h4>
+                                            <h4 class="card-title mb-4">Listes des abonnés à la newsletter ({{ $newsletters->count() }})</h4>
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th class="align-middle">Date</th>
                                                             <th class="align-middle">Nom & Prenom</th>
                                                             <th class="align-middle">Email</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($newsletters as $newsletter)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
-                                                            <td>
-                                                                07 Oct, 2019
-                                                            </td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{ $newsletter->nom_prenom }}</a> </td>
+                                                            <td>{{ $newsletter->email }}</td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -111,6 +138,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

@@ -177,14 +177,9 @@
                 <div class="col">
                   <select class="form-control" id="exampleFormControlSelect1">
                     <option>Selectionnez une commune</option>
-                    <option>Abobo</option>
-                    <option>Anyama</option>
-                    <option>Bingerville</option>
-                    <option>Cocody</option>
-                    <option>Treichville</option>
-                    <option>Marcory</option>
-                    <option>Koumassi</option>
-                    <option>Yopougon</option>
+                    @foreach($communes as $commune)
+                    <option>{{$commune->nom}}</option>
+                    @endforeach
                 </select>
                 </div>
                 <div class="col">

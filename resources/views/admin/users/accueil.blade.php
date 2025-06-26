@@ -80,27 +80,21 @@
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th class="align-middle">Date</th>
                                                             <th class="align-middle">Nom</th>
                                                             <th class="align-middle">Prenom</th>
                                                             <th class="align-middle">Email</th>
-                                                            <th class="align-middle">Role</th>
+                                                            <th class="align-middle">Date</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($etudiants as $etudiant)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
-                                                            <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$etudiant->name}}</a> </td>
+                                                            <td>{{$etudiant->firstname}}</td>
+                                                            <td>{{$etudiant->email}}</td>
+                                                            <td>{{$etudiant->created_at}}</td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -117,27 +111,17 @@
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th class="align-middle">Date</th>
                                                             <th class="align-middle">Nom</th>
-                                                            <th class="align-middle">Prenom</th>
                                                             <th class="align-middle">Email</th>
-                                                            <th class="align-middle">Role</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($admins as $admin)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
-                                                            <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$admin->name}}</a> </td>
+                                                            <td>{{$admin->email}}</td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -166,6 +150,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

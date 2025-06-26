@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>Inscription etudiant - Trouver Mon Ecole</title>
+    <title>Inscription etudiant</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -47,36 +47,69 @@
             <div class="col-md-6">
                 <div class="text-left">
                     <h2 class="text-center">Inscription</h2>
-                    <form action="traitement.php">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+                        
+                        <!-- Messages d'erreur globaux -->
+                        @if($errors->any())
+                            <div class="alert alert-danger mb-4">
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <!-- Champs existants avec gestion des erreurs -->
                         <div class="form-group mb-4">
-                          <label for="formGroupExampleInput">Non</label>
-                          <input type="text" class="form-control" placeholder="Votre nom" required>
+                            <label for="name">Nom</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                                  id="name" name="name" placeholder="Nom" required>
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="form-group mb-4">
-                          <label for="formGroupExampleInput">Prénom(s)</label>
-                          <input type="text" class="form-control" placeholder="Votre prénom" required>
+                            <label for="firstname">Prénom(s)</label>
+                            <input type="text" class="form-control @error('firstname') is-invalid @enderror" 
+                                  id="firstname" name="firstname" placeholder="Prenom"" required>
+                            @error('firstname')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="form-group mb-4">
                           <label for="inputEmail4">Votre adresse email</label>
-                          <input type="email" class="form-control " id="inputEmail4" placeholder="Adresse email" required>
+                          <input type="email" class="form-control " id="inputEmail4" name="email" placeholder="Adresse email" required>
                         </div>
                         <div class="form-group mb-4">
                           <label for="exampleInputPassword1">Entrer un mot de passe</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>
+                          <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Mot de passe" required>
                         </div>
                         <div class="form-group mb-4">
                           <label for="exampleInputPassword1">Confirmer le mot de passe</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>
+                          <input type="password" class="form-control" id="exampleInputPassword1" name="password_confirmation" placeholder="Mot de passe" required>
                         </div>
                         <div class="form-group form-check text-center">
                           <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
                           <label class="form-check-label" for="exampleCheck1">J'accepte le traitement de mes données personnelles.</label>
                         </div>
-                        <button type="submit" class="btn btn-primary font-weight-bold w-100 mb-4">S'INSCRIRE'</button>
-                      </form>
+                        
+                        <button type="submit" class="btn btn-primary font-weight-bold w-100 mb-4">S'INSCRIRE</button>
+                    </form>
+
+                    <!-- Script pour afficher/masquer le mot de passe -->
+                    <script>
+                    function togglePassword() {
+                        const passwordInput = document.getElementById("exampleInputPassword1");
+                        passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+                    }
+                    </script>
                 </div>
                   <div class="text-center mb-3">
-                    <span class="password font-weight-bold">Déjà un compte ? </span> <a href="{{ route('student.connexion') }}" class="password font-weight-bold">Connectez-vous maintenant</a>
+                    <span class="password font-weight-bold">Déjà un compte ? </span> <a href="{{ route('login') }}" class="password font-weight-bold">Connectez-vous maintenant</a>
                   </div>
             </div>
             <div class="col-md-3">

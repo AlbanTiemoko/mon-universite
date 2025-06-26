@@ -10,9 +10,18 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-        //
+    ->withMiddleware(function (Middleware $middleware) {
+        // Ajoutez cette ligne
+        $middleware->alias([
+            'prevent.web.user' => App\Http\Middleware\PreventWebUser::class,
+        ]);
+        
+        // Ou pour ajouter plusieurs middlewares :
+        $middleware->alias([
+            'prevent.web.user' => App\Http\Middleware\PreventWebUser::class,
+            'admin' => App\Http\Middleware\RedirectIfNotAdmin::class,
+        ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
+    ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

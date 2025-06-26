@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Commune;
+
 
 class AcceuilController extends Controller
 {
@@ -13,17 +15,20 @@ class AcceuilController extends Controller
 
     public function filiere()
     {
-        return view("filieres");
+        $communes = Commune::all();
+        return view("filieres", compact('communes'));
     }
 
     public function filiere_tertiaires()
     {
-        return view("filiere_tertiaire");
+        $communes = Commune::all();
+        return view("filiere_tertiaire", compact('communes'));
     }
 
     public function formation()
     {
-        return view("formation_qualifiante");
+        $communes = Commune::all();
+        return view("formation_qualifiante", compact('communes'));
     }
 
     public function blog()
@@ -39,6 +44,11 @@ class AcceuilController extends Controller
     public function password_forget()
     {
         return view("password_forget");
+    }
+
+    public function password_reset()
+    {
+        return view("reset-password");
     }
 
     public function inscription_etudiant()

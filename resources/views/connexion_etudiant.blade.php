@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>Connexion etudiant - Trouver Mon Ecole</title>
+    <title>Connexion etudiant</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,6 +28,14 @@
                 <a href="{{ route('accueil') }}" class="text_header">Accueil</a>
             </div>
         </div>
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
+
         <div class="row my-3">
             <div class="col text-center">
                 <h2>Connexion etudiant</h2>
@@ -47,26 +55,25 @@
             <div class="col-md-6">
                 <div class="text-center">
                     <h2>Connexion</h2>
-                    <form action="traitement.php">
-                        <div class="form-group mb-4 text-left">
-                            <label for="inputEmail4">Votre adresse email</label>
-                            <input type="email" class="form-control " id="inputEmail4" placeholder="Adresse email" required>
-                          </div>
-                          <div class="form-group mb-4 text-left position-relative">
-                            <label for="exampleInputPassword1">Votre mot de passe</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>
-                            <span class="toggle-password" onclick="togglePassword()" style="position:absolute; right:15px; top:38px; cursor:pointer;">
-                              👁️
-                            </span>
-                          </div>
-                          <button type="submit" class="btn btn-primary font-weight-bold w-100 mb-4">SE CONNECTER</button>
-                    </form>
+                    <form method="POST" action="{{ route('login') }}">
+                      @csrf <!-- Protection CSRF -->
+                      <div class="form-group mb-4 text-left">
+                          <label for="inputEmail4">Votre adresse email</label>
+                          <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Adresse email" required>
+                      </div>
+                      <div class="form-group mb-4 text-left position-relative">
+                          <label for="exampleInputPassword1">Votre mot de passe</label>
+                          <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Mot de passe" required>
+                          <span class="toggle-password" onclick="togglePassword()" style="position:absolute; right:15px; top:38px; cursor:pointer;">👁️</span>
+                      </div>
+                      <button type="submit" class="btn btn-primary font-weight-bold w-100 mb-4">SE CONNECTER</button>
+                  </form>
                 </div>
                 <div class="text-center mb-3">
                     <a href="{{ route('password.forget') }}" class="password font-weight-bold">Mot de passe oublié ?</a>
                   </div>
                   <div class="text-center mb-3">
-                   <span class="password font-weight-bold">Pas de compte ? </span> <a href="{{ route('inscription.etudiant') }}" class="password font-weight-bold">Inscrivez-vous maintenant</a>
+                   <span class="password font-weight-bold">Pas de compte ? </span> <a href="{{ route('register') }}" class="password font-weight-bold">Inscrivez-vous maintenant</a>
                   </div>
             </div>
             <div class="col-md-3">

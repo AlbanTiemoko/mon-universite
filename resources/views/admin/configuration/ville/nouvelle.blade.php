@@ -50,7 +50,8 @@
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="post">
+                                            <form method="POST" action="{{ route('store.ville') }}">
+                                                @csrf
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
@@ -58,11 +59,11 @@
                                                                 <div class="row form-group">
                                                                     <div class="col-md-6 mb-4">
                                                                         <label for="formGroupExampleInput">Reference(*)</label>
-                                                                        <input type="text" class="form-control" placeholder="V001" required>
+                                                                        <input type="text" class="form-control" name="reference_ville" placeholder="V001" required>
                                                                     </div>
                                                                     <div class="col-md-6 mb-4">
                                                                         <label for="formGroupExampleInput">Nom Ville(*)</label>
-                                                                        <input type="text" class="form-control" placeholder="filiere industrielle" required>
+                                                                        <input type="text" class="form-control" name="nom_ville" placeholder="Abidjan" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row form-group">
@@ -100,6 +101,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

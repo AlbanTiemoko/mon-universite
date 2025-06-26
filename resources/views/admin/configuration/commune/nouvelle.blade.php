@@ -50,19 +50,29 @@
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="post">
+                                            <form method="POST" action="{{ route('store.commune') }}">
+                                                @csrf
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1">
                                                                 <div class="row form-group">
-                                                                    <div class="col-md-6 mb-4">
+                                                                    <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Reference(*)</label>
-                                                                        <input type="text" class="form-control" placeholder="CQ001" required>
+                                                                        <input type="text" class="form-control" name="reference_commune" placeholder="CCD" required>
                                                                     </div>
-                                                                    <div class="col-md-6 mb-4">
+                                                                    <div class="col mb-4">
+                                                                        <label for="formGroupExampleInput">Ville(*)</label>
+                                                                        <select class="form-control " name="ville_id" required>
+                                                                            <option selected disable>Selectionner une ville</option>
+                                                                            @foreach($villes as $ville)
+                                                                            <option value="{{ $ville->id}}">{{$ville->nom}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Nom Commune/Quartier(*)</label>
-                                                                        <input type="text" class="form-control" placeholder="filiere industrielle" required>
+                                                                        <input type="text" class="form-control" name="nom_commune" placeholder="cité des arts" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row form-group">
@@ -100,6 +110,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

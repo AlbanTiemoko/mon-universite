@@ -44,6 +44,18 @@
                             @include('components.sidebar')
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
+
+                                    @if(session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                            <button class="close font-weight-normal" data-dismiss="alert">x</button>
+                                        </div>
+                                    @endif
+
+                                    @if(session('error'))
+                                        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                                    @endif
+                                    
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                                         <h4 class="mb-sm-0 font-size-18">ESPACE ETABLISSEMENTS</h4>
                                     </div>
@@ -64,7 +76,7 @@
 
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title mb-4">Listes des etablissements visibles</h4>
+                                            <h4 class="card-title mb-4">Listes des etablissements visibles ({{ $etablissement_visible->count() }})</h4>
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
@@ -78,22 +90,22 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($etablissement_visible as $etablissement)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$etablissement->reference}}</a> </td>
+                                                            <td>{{$etablissement->nom}}</td>
+                                                            <td>{{ $etablissement->adresse_complete }}</td>
+                                                            <td>{{ $etablissement->contacts }}</td>
+                                                            <td>{{$etablissement->email}}</td>
                                                             <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
+                                                                @if ($etablissement->etat == '1')
+                                                                    <span class="badge badge-ouvert">Visible</span>
+                                                                @else ($etablissement->etat == '0')
+                                                                    <span class="badge badge-ferme">Non visible</span>
+                                                                @endif
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -105,7 +117,7 @@
 
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title mb-4">Liste des etablissements à valider</h4>
+                                            <h4 class="card-title mb-4">Liste des etablissements à valider ({{ $etablissement_non_visible->count() }})</h4>
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
@@ -119,22 +131,22 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($etablissement_non_visible as $etablissement)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$etablissement->reference}}</a> </td>
+                                                            <td>{{$etablissement->nom}}</td>
+                                                            <td>{{ $etablissement->adresse_complete }}</td>
+                                                            <td>{{$etablissement->numero}}</td>
+                                                            <td>{{$etablissement->email}}</td>
                                                             <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
+                                                                @if ($etablissement->etat == '1')
+                                                                    <span class="badge badge-ouvert">Visible</span>
+                                                                @else ($etablissement->etat == '0')
+                                                                    <span class="badge badge-ferme">Non visible</span>
+                                                                @endif
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -164,6 +176,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

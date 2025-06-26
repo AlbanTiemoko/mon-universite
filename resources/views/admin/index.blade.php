@@ -60,13 +60,13 @@
                                                     <div class="d-flex">
                                                         <div class="flex-grow-1">
                                                             <p class="text-muted fw-medium">Nombres Etudiants</p>
-                                                            <h4 class="mb-0">1,235</h4>
+                                                            <h4 class="mb-0">{{ $etudiants->count() }}</h4>
                                                         </div>
 
                                                         <div class="flex-shrink-0 align-self-center">
                                                             <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
                                                                 <span class="avatar-title">
-                                                                    <i class="bx bx-copy-alt font-size-24"></i>
+                                                                    <i class="bx bxs-user-detail font-size-24"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -80,13 +80,13 @@
                                                     <div class="d-flex">
                                                         <div class="flex-grow-1">
                                                             <p class="text-muted fw-medium">Nombres Etablissements</p>
-                                                            <h4 class="mb-0">$35, 723</h4>
+                                                            <h4 class="mb-0">{{ $etablissements->count() }}</h4>
                                                         </div>
 
                                                         <div class="flex-shrink-0 align-self-center ">
                                                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                                                 <span class="avatar-title rounded-circle bg-primary">
-                                                                    <i class="bx bx-archive-in font-size-24"></i>
+                                                                    <i class="bx bx-layout font-size-24"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -100,13 +100,13 @@
                                                     <div class="d-flex">
                                                         <div class="flex-grow-1">
                                                             <p class="text-muted fw-medium">Nombres Abonnés</p>
-                                                            <h4 class="mb-0">$16.2</h4>
+                                                            <h4 class="mb-0">{{ $newsletters->count() }}</h4>
                                                         </div>
 
                                                         <div class="flex-shrink-0 align-self-center">
                                                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                                                 <span class="avatar-title rounded-circle bg-primary">
-                                                                    <i class="bx bx-purchase-tag-alt font-size-24"></i>
+                                                                    <i class="bx bx-detail font-size-24"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -120,13 +120,13 @@
                                                     <div class="d-flex">
                                                         <div class="flex-grow-1">
                                                             <p class="text-muted fw-medium">Nombres Inscriptions</p>
-                                                            <h4 class="mb-0">$16.2</h4>
+                                                            <h4 class="mb-0">{{ $inscriptions->count() }}</h4>
                                                         </div>
 
                                                         <div class="flex-shrink-0 align-self-center">
                                                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                                                 <span class="avatar-title rounded-circle bg-primary">
-                                                                    <i class="bx bx-purchase-tag-alt font-size-24"></i>
+                                                                    <i class="bx bx-task font-size-24"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -193,31 +193,19 @@
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th class="align-middle">Billing Name</th>
-                                                            <th class="align-middle">Billing Name</th>
-                                                            <th class="align-middle">Date</th>
-                                                            <th class="align-middle">Total</th>
-                                                            <th class="align-middle">Payment Status</th>
-                                                            <th class="align-middle">Payment Method</th>
+                                                            <th class="align-middle">Nom</th>
+                                                            <th class="align-middle">Prenom</th>
+                                                            <th class="align-middle">Email</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($etudiants as $etudiant)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
-                                                            <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$etudiant->name}}</a> </td>
+                                                            <td>{{$etudiant->firstname}}</td>
+                                                            <td>{{$etudiant->email}}</td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -234,31 +222,31 @@
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th class="align-middle">Billing Name</th>
-                                                            <th class="align-middle">Billing Name</th>
-                                                            <th class="align-middle">Date</th>
-                                                            <th class="align-middle">Total</th>
-                                                            <th class="align-middle">Payment Status</th>
-                                                            <th class="align-middle">Payment Method</th>
+                                                            <th class="align-middle">Reférence</th>
+                                                            <th class="align-middle">Nom Etablissement</th>
+                                                            <th class="align-middle">Adresse</th>
+                                                            <th class="align-middle">Contacts</th>
+                                                            <th class="align-middle">Email</th>
+                                                            <th class="align-middle">Etat</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($etablissements as $etablissement)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$etablissement->reference}}</a> </td>
+                                                            <td>{{$etablissement->nom}}</td>
+                                                            <td>{{ $etablissement->adresse_complete }}</td>
+                                                            <td>{{ $etablissement->contacts }}</td>
+                                                            <td>{{$etablissement->email}}</td>
                                                             <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
+                                                                @if ($etablissement->etat == '1')
+                                                                    <span class="badge badge-ouvert">Visible</span>
+                                                                @else ($etablissement->etat == '0')
+                                                                    <span class="badge badge-ferme">Non visible</span>
+                                                                @endif
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -275,31 +263,17 @@
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th class="align-middle">Billing Name</th>
-                                                            <th class="align-middle">Billing Name</th>
-                                                            <th class="align-middle">Date</th>
-                                                            <th class="align-middle">Total</th>
-                                                            <th class="align-middle">Payment Status</th>
-                                                            <th class="align-middle">Payment Method</th>
+                                                            <th class="align-middle">Nom & Prenom</th>
+                                                            <th class="align-middle">Email</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($newsletters as $newsletter)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
-                                                            <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{ $newsletter->nom_prenom }}</a> </td>
+                                                            <td>{{ $newsletter->email }}</td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -369,6 +343,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

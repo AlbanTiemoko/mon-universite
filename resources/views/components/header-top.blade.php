@@ -6,7 +6,7 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar">
-                            <a href="{{ route('dashboard') }}" class="logo logo-dark">
+                            <a href="{{ route('admin.dashboard') }}" class="logo logo-dark">
                                 <span class="logo-sm">
                                     <img src="/assets/images/LOGO FOND BLANC_Plan de travail 1.png" alt="" height="22">
                                 </span>
@@ -15,7 +15,7 @@
                                 </span>
                             </a>
 
-                            <a href="{{ route('dashboard') }}" class="logo logo-light">
+                            <a href="{{ route('admin.dashboard') }}" class="logo logo-light">
                                 <span class="logo-sm">
                                     <img src="/assets/images/LOGO FOND BLANC_Plan de travail 1.png" alt="" height="22">
                                 </span>
@@ -33,29 +33,39 @@
 
                     </div>
                     <div class="d-flex align-items-center">
-                        <h3 class="text-center text-white text-uppercase me-2">BIENVENU SUR VOTRE TABLEAU DE BORD</h3>
+                        <h3 class="text-center text-white text-uppercase me-2">BIENVENUE SUR VOTRE TABLEAU DE BORD</h3>
                         <div class="text-wrap text-white" style="width: 6rem;"></div>
                     </div>
                     <div class="d-flex">
-
                         <div class="dropdown d-inline-block">
-                            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="rounded-circle header-profile-user" src="{{ asset('assets/Images/avatar.png') }}" alt="Header Avatar">
-                                
-                                <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                            <button type="button" class="btn header-item waves-effect dropdown-toggle"
+                                    id="page-header-user-dropdown"
+                                    data-bs-toggle="dropdown" 
+                                    aria-expanded="false">
+                                <img class="rounded-circle header-profile-user" 
+                                    src="{{ asset('assets/Images/avatar.png') }}" 
+                                    alt="Header Avatar">
+                                <span class="d-none d-sm-inline-block ms-1">
+                                    {{ Auth::guard('admin')->user()->name }}
+                                </span>
                             </button>
 
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <!-- item-->
-                                <!--a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#notificationPanel" aria-controls="notificationPanel"><i class="bx bx-notification font-size-14 align-middle me-1"></i> <span key="t-profile">Notifications</span></a-->
-                                <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Deconnexion</span></a>
-                                <form id="logout-form" action="#" method="POST" style="display: none;">
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="page-header-user-dropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="bx bx-user font-size-16 align-middle me-1"></i> 
+                                    Profil ({{ Auth::guard('admin')->user()->email }})
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+                                    Déconnexion
+                                </a>
+                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST">
                                     @csrf
                                 </form>
                             </div>
                         </div>
-            
                     </div>
                 </div>
             </div>

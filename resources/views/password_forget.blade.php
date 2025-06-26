@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>Réinitialiser votre mot de passe - Trouver Mon Ecole</title>
+    <title>Réinitialiser votre mot de passe</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,9 +25,16 @@
       <div class="container mb-4">
         <div class="row">
             <div class="col text-center font-weight-bold py-5">
-                <a href="{{ route('student.connexion') }}" class="text_header">Connexion</a><span> / Réinitialisation mot de passe</span>
+                <a href="{{ route('login') }}" class="text_header">Connexion</a><span> / Réinitialisation mot de passe</span>
             </div>
         </div>
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
         <div class="row my-3">
             <div class="col text-center">
                 <h2>Réinitialiser votre mot de passe</h2>
@@ -41,15 +48,16 @@
         <div class="container my-5">
             <div class="row">
                 <div class="col">
-                    <form action="traitement.php">
-                        <div class="form-group mb-4 text-center">
-                            <label for="inputEmail4">Votre adresse email</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Adresse email" required>
-                          </div>
-                          <div class="form-group mb-4 text-center">
-                            <button type="submit" class="btn btn-primary font-weight-bold w-50">ENVOYER</button>
-                          </div>
-                    </form>
+                    <form method="POST" action="{{ route('password.email') }}">
+                      @csrf
+                      <div class="form-group mb-4 text-center">
+                          <label for="inputEmail4">Votre adresse email</label>
+                          <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Adresse email" required>
+                      </div>
+                      <div class="form-group mb-4 text-center">
+                          <button type="submit" class="btn btn-primary font-weight-bold w-50">ENVOYER</button>
+                      </div>
+                  </form>
                 </div>
                 <div class="row">
                     <div class="col text-center">

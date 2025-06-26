@@ -45,12 +45,12 @@
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                        <h4 class="mb-sm-0 font-size-18">LISTE DES ETUDIANTS</h4>
+                                        <h4 class="mb-sm-0 font-size-18">LISTE DES ETUDIANTS ({{ $etudiants->count() }})</h4>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="get">
+                                            <form action="{{ route('liste.etudiants') }}" method="GET">
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
@@ -58,19 +58,19 @@
                                                                 <div class="row form-group">
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Date</label>
-                                                                        <input type="date" class="form-control">
+                                                                        <input type="date" name="date" class="form-control" value="{{ request('date') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Nom</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="name" class="form-control" value="{{ request('name') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Prenom</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="firstname" class="form-control" value="{{ request('firstname') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Email</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="email" class="form-control" value="{{ request('email') }}">
                                                                     </div>
                                                                     <div class="col">
                                                                         <label for="formGroupExampleInput" class="text-white">Numero(*)</label></br>
@@ -92,23 +92,19 @@
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th class="align-middle">Date</th>
                                                             <th class="align-middle">Nom</th>
                                                             <th class="align-middle">Prenom</th>
                                                             <th class="align-middle">Email</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($etudiants as $etudiant)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
-                                                            <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$etudiant->name}}</a> </td>
+                                                            <td>{{$etudiant->firstname}}</td>
+                                                            <td>{{$etudiant->email}}</td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -138,6 +134,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

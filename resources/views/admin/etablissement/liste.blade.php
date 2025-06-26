@@ -44,48 +44,60 @@
                             @include('components.sidebar')
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
+
+                                    @if(session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                            <button class="close font-weight-normal" data-dismiss="alert">x</button>
+                                        </div>
+                                    @endif
+
+                                    @if(session('error'))
+                                        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                                    @endif
+
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                        <h4 class="mb-sm-0 font-size-18">LISTE DES ETABLISSEMENTS</h4>
+                                        <h4 class="mb-sm-0 font-size-18">LISTE DES ETABLISSEMENTS ({{ $etablissements->count() }}) </h4>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="get">
+                                            <form action="{{ route('liste.etablissement') }}" method="GET">
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1">
                                                                 <div class="row form-group">
                                                                     <div class="col mb-4">
-                                                                        <label for="formGroupExampleInput">Reférence</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <label>Référence</label>
+                                                                        <input type="text" class="form-control" name="reference" value="{{ request('reference') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
-                                                                        <label for="formGroupExampleInput">Nom Etablissement</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <label>Nom Etablissement</label>
+                                                                        <input type="text" class="form-control" name="nom" value="{{ request('nom') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
-                                                                        <label for="formGroupExampleInput">Adresse</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <label>Adresse</label>
+                                                                        <input type="text" class="form-control" name="adresse" value="{{ request('adresse') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
-                                                                        <label for="formGroupExampleInput">Contacts</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <label>Contacts</label>
+                                                                        <input type="text" class="form-control" name="numero" value="{{ request('numero') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
-                                                                        <label for="formGroupExampleInput">Email</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <label>Email</label>
+                                                                        <input type="text" class="form-control" name="email" value="{{ request('email') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
-                                                                        <label for="formGroupExampleInput">Etat</label>
-                                                                        <select class="form-control " required>
-                                                                            <option></option>
-                                                                            <option>Non Visible</option>
-                                                                            <option>Visible</option>
+                                                                        <label>Etat</label>
+                                                                        <select class="form-control" name="etat">
+                                                                            <option value="">Tous</option>
+                                                                            <option value="1" {{ request('etat') == '1' ? 'selected' : '' }}>Visible</option>
+                                                                            <option value="0" {{ request('etat') == '0' ? 'selected' : '' }}>Non Visible</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <label for="formGroupExampleInput" class="text-white">Numero Telephone(s)(*)</label>
+                                                                        <label class="text-white">.</label></br>
                                                                         <button type="submit" class="btn btn-primary font-weight-bold">RECHERCHER</button>
                                                                     </div>
                                                                 </div>
@@ -114,20 +126,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($etablissements as $etablissement)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$etablissement->reference}}</a> </td>
+                                                            <td>{{$etablissement->nom}}</td>
+                                                            <td>{{ $etablissement->adresse_complete }}</td>
+                                                            <td>{{ $etablissement->contacts }}</td>
+                                                            <td>{{$etablissement->email}}</td>
                                                             <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
+                                                                @if ($etablissement->etat == '1')
+                                                                    <span class="badge badge-ouvert">Visible</span>
+                                                                @else ($etablissement->etat == '0')
+                                                                    <span class="badge badge-ferme">Non visible</span>
+                                                                @endif
                                                             </td>
                                                             <td class="d-flex">
                                                                 <a href="#" class="link"><button type="button" class="btn btn-primary btn-sm mr-1"><i class="fa fa-eye text-white"></i></a></button>
@@ -138,11 +149,15 @@
                                                                 </form>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <!-- end table-responsive -->
 
+                                            <div class="d-flex justify-content-center mt-3">
+                                                {{ $etablissements->links() }}
+                                            </div>
                                             
                                         </div>
                                     </div>
@@ -167,6 +182,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

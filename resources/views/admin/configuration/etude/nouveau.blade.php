@@ -45,12 +45,13 @@
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                        <h4 class="mb-sm-0 font-size-18">ENREGISTREMENT VILLE</h4>
+                                        <h4 class="mb-sm-0 font-size-18">ENREGISTREMENT MODE ETUDE</h4>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="post">
+                                            <form method="POST" action="{{ route('store.mode.etude') }}">
+                                                @csrf
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
@@ -58,11 +59,11 @@
                                                                 <div class="row form-group">
                                                                     <div class="col-md-6 mb-4">
                                                                         <label for="formGroupExampleInput">Reference(*)</label>
-                                                                        <input type="text" class="form-control" placeholder="V001" required>
+                                                                        <input type="text" class="form-control" name="reference_mode_etude" placeholder="V001" required>
                                                                     </div>
                                                                     <div class="col-md-6 mb-4">
                                                                         <label for="formGroupExampleInput">Mode Etude(*)</label>
-                                                                        <input type="text" class="form-control" placeholder="filiere industrielle" required>
+                                                                        <input type="text" class="form-control" name="nom_mode_etude" placeholder="Cours du jour" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row form-group">
@@ -100,6 +101,8 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+        <!-- En fin de body -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 
 </html>

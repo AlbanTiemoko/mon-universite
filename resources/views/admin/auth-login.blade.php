@@ -46,16 +46,16 @@
                             </div>
                             <div class="card-body pt-0"> 
                                 <div class="p-4">
-                                    <form class="form-horizontal" action="/panel/index.html">
-        
+                                    <form class="form-horizontal" method="POST" action="{{ route('admin.login.submit') }}">
+                                        @csrf
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Email</label>
-                                            <input type="text" class="form-control" id="username" placeholder="Enter username">
+                                            <input type="text" class="form-control" name="email" id="username" placeholder="Enter username">
                                         </div>
                 
                                         <div class="form-group mb-4 text-left position-relative">
                                             <label for="exampleInputPassword1">Mot de passe</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>
+                                            <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Mot de passe" required>
                                             <span class="toggle-password" onclick="togglePassword()" style="position:absolute; right:15px; top:38px; cursor:pointer;">
                                             👁️
                                             </span>

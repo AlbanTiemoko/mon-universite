@@ -44,27 +44,43 @@
                             @include('components.sidebar')
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
+
+                                    @if(session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                            <button class="close font-weight-normal" data-dismiss="alert">x</button>
+                                        </div>
+                                    @endif
+
+                                    @if(session('error'))
+                                        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                                    @endif
+
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                        <h4 class="mb-sm-0 font-size-18">LISTE COMMUNE/QUARTIER</h4>
+                                        <h4 class="mb-sm-0 font-size-18">LISTE COMMUNE/QUARTIER ({{ $communes->count() }})</h4>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="get">
+                                            <form action="{{ route('liste.commune') }}" method="GET">
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1">
                                                                 <div class="row form-group">
-                                                                    <div class="col-md-4 mb-4">
+                                                                    <div class="col-md-3 mb-4">
                                                                         <label for="formGroupExampleInput">Reférence</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="query" class="form-control" value="{{ request('query') }}">
                                                                     </div>
-                                                                    <div class="col-md-4 mb-4">
+                                                                    <div class="col-md-3 mb-4">
+                                                                        <label for="formGroupExampleInput">Ville</label>
+                                                                        <input type="text" name="ville" class="form-control" value="{{ request('ville') }}">
+                                                                    </div>
+                                                                    <div class="col-md-3 mb-4">
                                                                         <label for="formGroupExampleInput">Nom Commune/Quartier</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="nom" class="form-control" value="{{ request('nom') }}">
                                                                     </div>
-                                                                    <div class="col-md-4">
+                                                                    <div class="col-md-3">
                                                                         <label for="formGroupExampleInput" class="text-white">Numero Telephone(s)(*)</label></br>
                                                                         <button type="submit" class="btn btn-primary font-weight-bold">RECHERCHER</button>
                                                                     </div>
@@ -91,23 +107,26 @@
                                                     <thead class="table-light">
                                                         <tr>
                                                             <th class="align-middle">Reférence</th>
+                                                            <th class="align-middle">Nom Ville</th>
                                                             <th class="align-middle">Nom Commune/Quartier</th>
                                                             <th class="align-middle">Actions</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($communes as $commune)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$commune->reference}}</a> </td>
+                                                            <td>{{$commune->ville->nom}}</td>
+                                                            <td>{{$commune->nom}}</td>
                                                             <td class="d-flex">
-                                                                <a href="#" class="link"><button type="button" class="btn btn-primary btn-sm mr-1"><i class="fa fa-eye text-white"></i></a></button>
-                                                                <a href="#" class="link"><button type="button" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pen text-white"></i></a></button>
-                                                                <form onsubmit="return confirmerSuppression()" action="#" method="POST">
+                                                                <a href="{{route('commune.edit', $commune->id)}}" class="link"><button type="submit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pen text-white"></i></a></button>
+                                                                <form onsubmit="return confirmerSuppression({{ $commune->id }})" action="{{ route('destroy.commune', $commune->id) }}" method="POST">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></button>
                                                                 </form>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -137,6 +156,13 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+
+        <script>
+            function confirmerSuppression(id) {
+                var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette commune ?");
+                return confirmation;
+            }
+        </script>
     </body>
 
 </html>

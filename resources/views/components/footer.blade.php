@@ -4,13 +4,24 @@
           <div class="row">
             <div class="col text-center mt-4">
               <h4 class="pb-2">Demande de prise en charge</h4>
-              <form class=" pb-3 align-items-center" action="/action_page.php">
+              @if(session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                            <button class="close font-weight-normal" data-dismiss="alert">x</button>
+                                        </div>
+                                    @endif
+
+                                    @if(session('error'))
+                                        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                                    @endif
+              <form class=" pb-3 align-items-center" method="POST" action="{{ route('store.newsletter') }}">
+                  @csrf
                 <div class="row">
                   <div class="col">
-                    <input type="text" class="form-control w-100" placeholder="Nom prénom">
+                    <input type="text" class="form-control w-100" name="nom_prenom_newsletter" placeholder="Nom prénom">
                   </div>
                   <div class="col">
-                    <input type="email" class="form-control w-100" placeholder="Adresse email">
+                    <input type="email" class="form-control w-100" name="newsletter_email" placeholder="Adresse email">
                   </div>
                   
                 </div>

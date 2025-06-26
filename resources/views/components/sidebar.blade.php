@@ -1,8 +1,8 @@
 <div class="col-md-2 bg-info text-dark pl-4 pt-4">
     <div class="">
         
-        <a href="{{ route('dashboard') }}" class="link {{ Route::is('dashboard') ? 'text-primary' : '' }}">
-            <p class="font-weight-bold h6 {{ Route::is('dashboard') ? 'text-primary' : '' }}">
+        <a href="{{ route('admin.dashboard') }}" class="link {{ Route::is('admin.dashboard') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('admin.dashboard') ? 'text-primary' : '' }}">
                 <i class="bx bx-home-circle pr-2 pb-3"></i> Tableau de bord
             </p>
         </a>

@@ -39,3 +39,20 @@ background-color: #f97f0c !important;
         border: 0;
         border-top: 1px solid rgba(0, 0, 0, 0.1);
       }
+
+
+      .badge {
+        padding: 5px 10px;
+        border-radius: 3px;
+        color: #fff;
+    }
+
+    .badge-ouvert {
+      background-color: #28a745; /* Vert */
+      color: #fff; /* Texte en blanc pour un meilleur contraste */
+  }
+
+  .badge-ferme {
+      background-color: #dc3545; /* Rouge */
+      color: #fff; /* Texte en blanc pour un meilleur contraste */
+  }
