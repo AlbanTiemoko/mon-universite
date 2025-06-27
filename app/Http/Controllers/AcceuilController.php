@@ -17,21 +17,21 @@ class AcceuilController extends Controller
     public function filiere()
     {
         $communes = Commune::all();
-        $villes = Villes::all();
+        $villes = Ville::all();
         return view("filieres", compact('communes', 'villes'));
     }
 
     public function filiere_tertiaires()
     {
         $communes = Commune::all();
-        $villes = Villes::all();
+        $villes = Ville::all();
         return view("filiere_tertiaire", compact('communes', 'villes'));
     }
 
     public function formation()
     {
         $communes = Commune::all();
-        $villes = Villes::all();
+        $villes = Ville::all();
         return view("formation_qualifiante", compact('communes', 'villes'));
     }
 
