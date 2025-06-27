@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Commune;
+use App\Models\Ville;
 
 
 class AcceuilController extends Controller
@@ -16,19 +17,22 @@ class AcceuilController extends Controller
     public function filiere()
     {
         $communes = Commune::all();
-        return view("filieres", compact('communes'));
+        $villes = Villes::all();
+        return view("filieres", compact('communes', 'villes'));
     }
 
     public function filiere_tertiaires()
     {
         $communes = Commune::all();
-        return view("filiere_tertiaire", compact('communes'));
+        $villes = Villes::all();
+        return view("filiere_tertiaire", compact('communes', 'villes'));
     }
 
     public function formation()
     {
         $communes = Commune::all();
-        return view("formation_qualifiante", compact('communes'));
+        $villes = Villes::all();
+        return view("formation_qualifiante", compact('communes', 'villes'));
     }
 
     public function blog()
