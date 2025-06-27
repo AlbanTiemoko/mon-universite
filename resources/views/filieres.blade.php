@@ -176,6 +176,14 @@
               <div class="row">
                 <div class="col">
                   <select class="form-control" id="exampleFormControlSelect1">
+                    <option>Selectionnez une ville</option>
+                    @foreach($villes as $ville)
+                    <option>{{$ville->nom}}</option>
+                    @endforeach
+                </select>
+                </div>
+                <div class="col">
+                  <select class="form-control" id="exampleFormControlSelect1">
                     <option>Selectionnez une commune</option>
                     @foreach($communes as $commune)
                     <option>{{$commune->nom}}</option>
