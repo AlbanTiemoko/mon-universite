@@ -60,8 +60,9 @@
                                                                         <label for="formGroupExampleInput">Etablissement(*)</label>
                                                                         <select class="form-control " required>
                                                                             <option>Selectionnez un etablissement</option>
-                                                                            <option>Groupe EDHEC</option>
-                                                                            <option>ISTC</option>
+                                                                            @foreach($etablissements as $etablissement)
+                                                                            <option value="{{ $etablissement->id }}">{{ $etablissement->nom }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-md-6 mb-4">
@@ -94,9 +95,9 @@
                                                                         <label for="formGroupExampleInput">Mode d'etude(*)</label>
                                                                         <select class="form-control " required>
                                                                             <option></option>
-                                                                            <option>Plein temps</option>
-                                                                            <option>Cours du soir</option>
-                                                                            <option>Cours à distance</option>
+                                                                            @foreach($mode_etudes as $mode_etude)
+                                                                            <option value="{{ $mode_etude->id }}">{{ $mode_etude->nom }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-md-6 mb-4">
@@ -107,9 +108,9 @@
                                                                         <label for="formGroupExampleInput">Type de filiere(*)</label>
                                                                         <select class="form-control " required>
                                                                             <option></option>
-                                                                            <option>Filiere Industrielle</option>
-                                                                            <option>Filiere Tertiaire</option>
-                                                                            <option>Formation Qualifiante</option>
+                                                                            @foreach($type_filieres as $type_filiere)
+                                                                            <option value="{{ $type_filiere->id }}">{{ $type_filiere->nom }}</option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>

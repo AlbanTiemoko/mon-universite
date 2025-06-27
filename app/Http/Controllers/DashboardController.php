@@ -113,7 +113,10 @@ class DashboardController extends Controller
 
     public function nouvelle_filiere()
     {
-        return view("admin.filiere.nouvelle");
+        $mode_etudes = ModeEtude::all();
+        $type_filieres = TypeFiliere::all();
+        $etablissements = Etablissement::where('etat', 1)->get();
+        return view("admin.filiere.nouvelle", compact('mode_etudes', 'type_filieres', 'etablissements'));
     }
 
     public function type_filiere_liste(Request $request)
