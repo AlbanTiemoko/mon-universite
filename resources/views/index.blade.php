@@ -38,44 +38,45 @@
                 <div class="col text-center">
                     <h5 class="mb-4 text-white font font-weight-bold">PROGRAME DE RECHERCHE RAPIDE</h5>
                 </div>
-              <form>
-                <div class="form-row ">
+              <form method="GET" action="{{ route('search') }}">
+                <div class="form-row">
+                  {{-- Diplôme requis --}}
                   <div class="col">
-                    <select class="form-control" id="exampleFormControlSelect1">
-                      <option>Votre diplôme actuel</option>
-                      <option>BAC+5 et Plus</option>
-                      <option>BAC+4</option>
-                      <option>BAC+3</option>
-                      <option>BAC+2</option>
-                      <option>BAC</option>
-                      <option>BEPC</option>
-                      <option>BT</option>
-                  </select>
+                    <select class="form-control" name="diplome_requis">
+                      <option value="">Votre diplôme actuel</option>
+                      @foreach($diplomesRequis as $d)
+                        <option value="{{ $d }}" {{ request('diplome_requis') == $d ? 'selected' : '' }}>
+                          {{ $d }}
+                        </option>
+                      @endforeach
+                    </select>
                   </div>
+
+                  {{-- Domaine d'étude --}}
                   <div class="col">
-                    <select class="form-control" id="exampleFormControlSelect1">
-                      <option>Domaine d'etude</option>
-                      <option>Geine Logiciel et TIC</option>
-                      <option>Réseau Informatique et Telecom</option>
-                      <option>Gestion Commerciale</option>
-                      <option>Transport et Logistique</option>
-                      <option>Gestion Ressources Humaines</option>
-                      <option>Finances / Comptabilité</option>
-                      <option>Marketing et Management</option>
-                      <option>Gestion de Projets</option>
-                      <option>Informatique Développeur D'Application</option>
-                      <option>Droits des Affaires et Fiscalités</option>
-                      <option>Administration et Gestion des Entreprises</option>
-                  </select>
+                    <select class="form-control" name="domaine">
+                      <option value="">Domaine d'étude</option>
+                      @foreach($domaines as $dom)
+                        <option value="{{ $dom }}" {{ request('domaine') == $dom ? 'selected' : '' }}>
+                          {{ $dom }}
+                        </option>
+                      @endforeach
+                    </select>
                   </div>
+
+                  {{-- Mode d'étude --}}
                   <div class="col">
-                    <select class="form-control" id="exampleFormControlSelect1">
-                      <option>Mode d'etdue</option>
-                      <option>Temps Plein</option>
-                      <option>Cours du Soir</option>
-                      <option>Cours en Ligne</option>
-                  </select>
+                    <select class="form-control" name="mode">
+                      <option value="">Mode d'étude</option>
+                      @foreach($modes as $m)
+                        <option value="{{ $m }}" {{ request('mode') == $m ? 'selected' : '' }}>
+                          {{ $m }}
+                        </option>
+                      @endforeach
+                    </select>
                   </div>
+
+                  {{-- Bouton --}}
                   <div class="col">
                     <button type="submit" class="btn btn-danger search">RECHERCHER</button>
                   </div>
@@ -144,48 +145,17 @@
                     <div class="h1 font-weight-bold">Les filieres les plus recherchées</div>
                   </div>
                 </div>
-                <div class="row mt-4">
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Gestion Commerciale</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Informatique developpeur</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Comptabilité</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Ressources humaines</button>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Logistiques & Transport</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Sécrétariat</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Community Manager</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Gestion des Projets</button>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Logistique et Transport</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Réseau Informatique Tél</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Informatique Dev Apps</button>
-                  </div>
-                  <div class="col">
-                    <button type="button" class="btn btn-outline-warning rounded-pill w-100">Droits des Affaires</button>
-                  </div>
-                </div>
+                @foreach(['filieres_industrielles', 'filieres_tertiaires', 'filieres_qualifiantes'] as $key)
+                    <div class="row mt-4">
+                        @foreach($$key as $filiere)
+                            <div class="col">
+                                <button type="button" class="btn btn-outline-warning rounded-pill w-100">
+                                    {{ $filiere->affichage }}
+                                </button>
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
                 <div class="row mt-4">
                   <div class="col">
                     

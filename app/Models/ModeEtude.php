@@ -10,8 +10,9 @@ class ModeEtude extends Model
         'reference', 'nom', 'user_updated_id',
     ];
     
-    public function filieres(){
-        return $this->hasMany(filiere::class);
+    public function filieres()
+    {
+        return $this->belongsToMany(Filiere::class, 'filiere_mode_etudes');
     }
 
     public function inscriptions(){

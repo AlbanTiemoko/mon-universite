@@ -56,3 +56,8 @@ background-color: #f97f0c !important;
       background-color: #dc3545; /* Rouge */
       color: #fff; /* Texte en blanc pour un meilleur contraste */
   }
+
+  .badge-traite {
+      background-color: #ff9f0f; /* Rouge */
+      color: #fff; /* Texte en blanc pour un meilleur contraste */
+  }

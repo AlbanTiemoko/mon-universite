@@ -18,6 +18,7 @@ Route::get('/filieres-industrielles', [App\Http\Controllers\AcceuilController::c
 Route::get('/filieres-tertiaires', [App\Http\Controllers\AcceuilController::class, 'filiere_tertiaires'])->name('filieres.tertiaire');
 Route::get('/formations-qualifiantes', [App\Http\Controllers\AcceuilController::class, 'formation'])->name('formations');
 Route::get('/notre-blog', [App\Http\Controllers\AcceuilController::class, 'blog'])->name('blog');
+Route::get('/recherche-filiere', [App\Http\Controllers\AcceuilController::class, 'search'])->name('search');
 
 /**Espace etudiant */
 Route::get('/renitialiser-mot-passe', [App\Http\Controllers\AcceuilController::class, 'password_forget'])->name('password.forget');
@@ -28,8 +29,8 @@ Route::get('/connexion-etablissement', [App\Http\Controllers\AcceuilController::
 Route::get('/inscription-etablissement', [App\Http\Controllers\AcceuilController::class, 'inscription_etablissement'])->name('etablissement.inscription');
 
 /**Detail etablissement */
-Route::get('/toutes-filieres-etablissement', [App\Http\Controllers\AcceuilController::class, 'filiere_school'])->name('filieres.school');
-Route::get('/description-etablissement', [App\Http\Controllers\AcceuilController::class, 'description_school'])->name('description.school');
+Route::get('/etablissement/{slug}/filieres', [App\Http\Controllers\AcceuilController::class, 'filiere_school'])->name('filieres.school');
+Route::get('/etablissement/{slug}/details', [App\Http\Controllers\AcceuilController::class, 'description_school'])->name('description.school');
 Route::middleware(['auth'])->group(function () {
     Route::get('/inscription', [App\Http\Controllers\AcceuilController::class, 'inscription'])->name('inscription');
 });
@@ -101,17 +102,34 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/commune/{id}/edit', [App\Http\Controllers\ConfigurationController::class, 'edit_commune'])->name('commune.edit');
     Route::put('/commune/{id}/edit', [App\Http\Controllers\ConfigurationController::class, 'update_commune'])->name('commune.update');
 
-    //**Newsletters */
-    Route::post('/nouvelle-demande-newsletter', [App\Http\Controllers\NewsletterController::class, 'store'])->name('store.newsletter');
-
     //**Filieres */
     Route::post('/nouveau-type-filiere', [App\Http\Controllers\FiliereController::class, 'store'])->name('store.type.filiere');
     Route::post('/nouveau-type-filiere/{id}', [App\Http\Controllers\FiliereController::class, 'destroy'])->name('destroy.type.filiere');
     Route::get('/type-filiere/{id}/edit', [App\Http\Controllers\FiliereController::class, 'edit'])->name('type.filiere.edit');
     Route::put('/type-filiere/{id}/edit', [App\Http\Controllers\FiliereController::class, 'update'])->name('type.filiere.update');
 
+    Route::post('/nouvelle-filiere', [App\Http\Controllers\FiliereController::class, 'store_filiere'])->name('store.filiere');
+    Route::post('/filiere/{id}', [App\Http\Controllers\FiliereController::class, 'destroy_filiere'])->name('destroy.filiere');
+    Route::get('/filiere/{id}/edit', [App\Http\Controllers\FiliereController::class, 'edit_filiere'])->name('filiere.edit');
+    Route::put('/filiere/{id}/edit', [App\Http\Controllers\FiliereController::class, 'update_filiere'])->name('filiere.update');
+
     //**Etablissment */
     Route::post('/nouvel-etablissement', [App\Http\Controllers\EtablissementController::class, 'store'])->name('store.etablissement');
+    Route::post('/etablissement/{id}', [App\Http\Controllers\EtablissementController::class, 'destroy'])->name('destroy.etablissement');
+    Route::get('/etablissement/{id}/edit', [App\Http\Controllers\EtablissementController::class, 'edit'])->name('etablissement.edit');
+    Route::put('/etablissement/{id}/edit', [App\Http\Controllers\EtablissementController::class, 'update'])->name('etablissement.update');
 
 });
+
+//**Avis */
+Route::post('/nouvel-avis', [App\Http\Controllers\AvisController::class, 'store'])->name('store.avis');
+Route::put('/avis/{id}/{etat}', [App\Http\Controllers\AvisController::class, 'etat'])->name('etat.avis');
+Route::post('/avis/{id}', [App\Http\Controllers\AvisController::class, 'destroy'])->name('destroy.avis');
+
+//**Inscription */
+Route::post('/demande-inscription', [App\Http\Controllers\InscriptionController::class, 'store'])->name('store.inscription');
+
+//**Newsletters */
+Route::post('/nouvelle-demande-newsletter', [App\Http\Controllers\NewsletterController::class, 'store'])->name('store.newsletter');
+
 

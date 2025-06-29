@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>Inscription - Trouver Mon Ecole</title>
+    <title>Inscription</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,7 +40,8 @@
         </div>
       </div>
       <div class="container">
-        <form action="traitement-php">
+        <form method="POST" action="{{ route('store.inscription') }}">
+            @csrf
             <div class="row mb-3">
                 <div class="col text-center">
                     <h5>Informations personnelle</h5>
@@ -49,21 +50,21 @@
             <div class="row form-group">
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Non(*)</label>
-                    <input type="text" class="form-control" placeholder="Votre nom" required>
+                    <input type="text" class="form-control" value="{{ auth()->user()->name ?? '' }}" placeholder="Votre nom" required readonly>
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Prénom(s)(*)</label>
-                    <input type="text" class="form-control" placeholder="Votre prénom" required>
+                    <input type="text" class="form-control" value="{{ auth()->user()->firstname ?? '' }}" placeholder="Votre prénom" required readonly>
                 </div>
             </div>
             <div class="row form-group">
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Date de naissance (jj/mm/aaaa)(*)</label>
-                    <input type="date" class="form-control ">
+                    <input type="date" class="form-control" name="date_naissance">
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Genre</label>
-                    <select class="form-control ">
+                    <select class="form-control" name="genre">
                         <option>Pas spécifié</option>
                         <option>Masculin</option>
                         <option>Féminin</option>
@@ -73,17 +74,11 @@
             <div class="row form-group">
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Ville(*)</label>
-                    <select class="form-control " required>
-                        <option>Choisissez votre ville</option>
-                        <option>Abidjan</option>
-                        <option>Korogho</option>
-                        <option>San Pédro</option>
-                        <option>Yamoussoukro</option>
-                      </select>
+                    <input type="text" class="form-control" name="ville" placeholder="Ville où vous residez">
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Commune/Quartier</label>
-                    <input type="text" class="form-control " placeholder="Lieu d'habitation">
+                    <input type="text" class="form-control" name="commune_quartier" placeholder="Lieu d'habitation">
                 </div>
             </div>
             <div class="row mb-3 mt-3">
@@ -94,11 +89,11 @@
             <div class="row form-group">
                 <div class="col-md-6 mb-4">
                     <label for="inputEmail4">Email(*)</label>
-                    <input type="email" class="form-control " id="inputEmail4" placeholder="Votre email" required>
+                    <input type="email" class="form-control" value="{{ auth()->user()->email ?? '' }}" placeholder="Votre email" required readonly>
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Numéro de téléphone(*)</label>
-                    <input type="text" class="form-control " placeholder="Votre numéro de téléphone" required>
+                    <input type="text" class="form-control" name="telephone" placeholder="Votre numéro de téléphone" required>
                 </div>
             </div>
             <div class="row mb-3 mt-3">
@@ -109,19 +104,19 @@
             <div class="row form-group">
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Niveau d'etude (vous avez déjà)(*)</label>
-                    <select class="form-control " required>
+                    <select class="form-control" name="niveau_etude" required>
                         <option>Choisissez votre niveau d'etude</option>
-                        <option>Master</option>
-                        <option>Licence professionnel</option>
-                        <option>BTS</option>
-                        <option>BAC</option>
-                        <option>BT</option>
-                        <option>BEPC</option>
-                      </select>
+                        @foreach($diplome_requis as $requis)
+                            <option value="{{ $requis }}"
+                                {{ isset($diplomeRequisAuto) && $diplomeRequisAuto == $requis ? 'selected' : '' }}>
+                                {{ $requis }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="formGroupExampleInput">Année d'obtention du diplôme (*)</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" name="annee_obtention_diplome" required>
                 </div>
             </div>
             <div class="row mb-3 mt-3">
@@ -132,15 +127,15 @@
             <div class="row form-group">
                 <div class="col mb-4">
                     <label for="formGroupExampleInput">Diplôme souhaité(*)</label>
-                    <select class="form-control " required>
+                    <select class="form-control" name="diplome_souhait" required>
                         <option>Choisissez le diplôme que vous souhaitez</option>
-                        <option>Doctorat</option>
-                        <option>Master professionnel</option>
-                        <option>Licence professionnelle</option>
-                        <option>Brevet de Technicien Superieure (BTS)</option>
-                        <option>Formation qualifiante</option>
-                        <option>Certificat</option>
-                      </select>
+                        @foreach($diplome_final as $final)
+                            <option value="{{ $final }}"
+                                {{ isset($diplomeFinalAuto) && $diplomeFinalAuto == $final ? 'selected' : '' }}>
+                                {{ $final }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row mb-3 mt-3">
@@ -149,50 +144,38 @@
                 </div>
             </div>
             <div class="row form-group text-center">
-                <div class="col-md-4 mb-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">Temps plein (cours du jours)</label>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">Temps partielle (cours du soir)</label>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                    <label class="form-check-label" for="inlineRadio3">Cours en ligne</label>
-                </div>
+                @foreach($mode_etudes as $mode_etude)
+                    <div class="col-md-4 mb-4">
+                        <input class="form-check-input" type="radio" name="mode_etude_id" id="inlineRadio{{ $mode_etude->id }}" value="{{ $mode_etude->id }}" required>
+                        <label class="form-check-label" for="inlineRadio{{ $mode_etude->id }}">{{ $mode_etude->nom }}</label>
+                    </div>
+                @endforeach
             </div>
             <div class="row form-group">
                 <div class="col-md-6 mb-4">
-                    <label for="formGroupExampleInput">Domaine d'etude(*)</label>
-                    <select class="form-control " required>
-                        <option>Choisissez votre filière</option>
-                        <option>Informatique Développeur d'Application</option>
-                        <option>Génie Logiciel & TIC</option>
-                        <option>Finances / Comptabilité</option>
-                        <option>Marketing et Management Commerciale</option>
-                        <option>Droits des Affaires et Fiscalité</option>
-                        <option>Réseau Informatique et Telecom</option>
-                        <option>Transport et Logistique</option>
-                        <option>Gestion des Projets</option>
-                        <option>Gestion des Ressources Humaines</option>
-                    </select>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <label for="exampleFormControlSelect2">Choisissez votre université(*)</label>
-                    <select multiple class="form-control" id="exampleFormControlSelect2" required>
-                        <option>Groupe LOKO</option>
-                        <option>Groupe EDHEC</option>
-                        <option>Institut des Hautes Etudes Avicenne</option>
-                        <option>Agitel Formation</option>
-                        <option>Institut de Formation Sainte Marie</option>
-                        <option>HETEC Abidjan</option>
-                        <option>INPHB Yamoussoukro</option>
-                        <option>International University Abidjan (IUA)</option>
-                        <option>UCAO Abidjan</option>
-                        <option>ISTC Abidjan</option>
-                    </select>
-                </div>
+                <label for="formGroupExampleInput">Domaine d'etude(*)</label>
+                <select class="form-control" name="filiere_id" required>
+                    <option>Filière choisit</option>
+                    @foreach($filieres as $filiere)
+                        <option value="{{ $filiere->id }}"
+                            {{ isset($filiereSelectionnee) && $filiereSelectionnee->id == $filiere->id ? 'selected' : '' }}>
+                            {{ $filiere->nom }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-6 mb-4">
+                <label for="etablissementSelect">Choisissez votre université(*)</label>
+                <select class="form-control" name="etablissement_id" required>
+                    <option>Université choisit</option>
+                    @foreach($etablissements as $etab)
+                        <option value="{{ $etab->id }}"
+                            {{ isset($etablissementSelectionne) && $etablissementSelectionne->id == $etab->id ? 'selected' : '' }}>
+                            {{ $etab->nom }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
             </div>
             <div class="row mb-3 mt-3">
                 <div class="col text-center">
@@ -202,7 +185,7 @@
             <div class="row form-group mb-5">
                 <div class="col">
                     <label for="exampleFormControlTextarea1"><em> Si vous avez des informations supplémentaire. Ecrivez les</em></label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                    <textarea class="form-control" name="info_additionnel" id="exampleFormControlTextarea1" rows="10"></textarea>
                 </div>
             </div>
             <div class="row form-group mb-5">
@@ -220,5 +203,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
   </body>
 </html>

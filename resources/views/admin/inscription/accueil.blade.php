@@ -64,7 +64,7 @@
 
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title mb-4">Listes des demandes d'inscription</h4>
+                                            <h4 class="card-title mb-4">Listes des demandes d'inscription envoyé pour validation ({{ $inscriptions->count() }})</h4>
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
@@ -78,34 +78,79 @@
                                                             <th class="align-middle">Diplome souhaité</th>
                                                             <th class="align-middle">Forme d'etude</th>
                                                             <th class="align-middle">Etablissement</th>
+                                                            <th class="align-middle">Etat</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($inscriptions as $inscription)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{ $inscription->reference }}</a> </td>
+                                                            <td>{{ $inscription->created_at }}</td>
+                                                            <td>{{ $inscription->user->name }}</td>
+                                                            <td>{{ $inscription->user->firstname }}</td>
+                                                            <td>{{ $inscription->telephone }}</td>
+                                                            <td>{{ $inscription->niveau_etude }}</td>
+                                                            <td>{{ $inscription->diplome_souhait }}</td>
+                                                            <td>{{ $inscription->mode_etude->nom }}</td>
+                                                            <td>{{ $inscription->etablissement->nom }}</td>
                                                             <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
+                                                                @if ($inscription->etat == '1')
+                                                                    <span class="badge badge-traite">Envoyé</span>
+                                                                @else ($inscription->etat == '2')
+                                                                    <span class="badge badge-ferme">Traité</span>
+                                                                @endif
                                                             </td>
                                                         </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- end table-responsive -->
+
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title mb-4">Liste des demandes d'inscription traitée ({{ $inscription_traite->count() }})</h4>
+                                            <div class="table-responsive">
+                                                <table class="table align-middle table-nowrap mb-0">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th class="align-middle">Reférence</th>
+                                                            <th class="align-middle">Date Demande</th>
+                                                            <th class="align-middle">Nom Etudiant</th>
+                                                            <th class="align-middle">Prenom Etudiant</th>
+                                                            <th class="align-middle">Numero Telephone</th>
+                                                            <th class="align-middle">Niveau d'etude</th>
+                                                            <th class="align-middle">Diplome souhaité</th>
+                                                            <th class="align-middle">Forme d'etude</th>
+                                                            <th class="align-middle">Etablissement</th>
+                                                            <th class="align-middle">Etat</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($inscription_traite as $inscription)
+                                                        <tr>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{ $inscription->reference }}</a> </td>
+                                                            <td>{{ $inscription->created_at }}</td>
+                                                            <td>{{ $inscription->user->name }}</td>
+                                                            <td>{{ $inscription->user->firstname }}</td>
+                                                            <td>{{ $inscription->telephone }}</td>
+                                                            <td>{{ $inscription->niveau_etude }}</td>
+                                                            <td>{{ $inscription->diplome_souhait }}</td>
+                                                            <td>{{ $inscription->mode_etude->nom }}</td>
+                                                            <td>{{ $inscription->etablissement->nom }}</td>
+                                                            <td>
+                                                                @if ($inscription->etat == '1')
+                                                                    <span class="badge badge-traite">Envoyé</span>
+                                                                @else ($inscription->etat == '2')
+                                                                    <span class="badge badge-ferme">Traité</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

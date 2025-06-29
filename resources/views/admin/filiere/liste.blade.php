@@ -44,13 +44,25 @@
                             @include('components.sidebar')
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
+
+                                    @if(session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                            <button class="close font-weight-normal" data-dismiss="alert">x</button>
+                                        </div>
+                                    @endif
+
+                                    @if(session('error'))
+                                        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                                    @endif
+
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                                         <h4 class="mb-sm-0 font-size-18">LISTE DES FILIERES</h4>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="get">
+                                            <form action="{{ route('liste.filiere') }}" method="GET">
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
@@ -58,27 +70,34 @@
                                                                 <div class="row form-group">
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Reférence</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="reference" class="form-control" value="{{ request('reference') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Nom Filiere</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="nom" class="form-control" value="{{ request('nom') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Nom Etablissement</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="etablissement" class="form-control" value="{{ request('etablissement') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Type Filiers</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <select class="form-control" name="type">
+                                                                            <option value=""></option>
+                                                                            @foreach ($type_filiere as $type)
+                                                                                <option value="{{ $type->nom }}" {{ request('type_filiere') == $type->nom ? 'selected' : '' }}>
+                                                                                    {{ $type->nom }}
+                                                                                </option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Montant</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="montant" class="form-control" value="{{ request('montant') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Durée</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" name="duree" class="form-control" value="{{ request('duree') }}">
                                                                     </div>
                                                                     <div class="col">
                                                                         <label for="formGroupExampleInput" class="text-white">Numero Telephone(s)(*)</label>
@@ -95,7 +114,13 @@
 
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title mb-4"></h4>
+                                            <h4 class="card-title mb-4">
+                                                <div class="col mb-4 text-right">
+                                                    <a href="{{ route('nouvelle.filiere') }}">
+                                                        <button type="submit" class="btn btn-primary font-weight-bold">NOUVELLE FILIERE</button>
+                                                    </a>
+                                                </div>
+                                            </h4>
                                             <div class="table-responsive">
                                                 <table class="table align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
@@ -110,30 +135,26 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($filiere as $filiere)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$filiere->reference}}</a> </td>
+                                                            <td>{{$filiere->nom}}</td>
+                                                            <td>{{$filiere->etablissement->nom}}</td>
+                                                            <td>{{$filiere->type_filiere->nom}}</td>
                                                             <td>
-                                                                07 Oct, 2019
+                                                                <span class="badge badge-ouvert font-size-11">{{$filiere->montant_formate}}</span>
                                                             </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
+                                                            <td>{{$filiere->duree}} An</td>
                                                             <td class="d-flex">
                                                                 <a href="#" class="link"><button type="button" class="btn btn-primary btn-sm mr-1"><i class="fa fa-eye text-white"></i></a></button>
-                                                                <a href="#" class="link"><button type="button" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pen text-white"></i></a></button>
-                                                                <form onsubmit="return confirmerSuppression()" action="#" method="POST">
+                                                                <a href="{{ route('filiere.edit', $filiere->id) }}" class="link"><button type="submit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pen text-white"></i></a></button>
+                                                                <form onsubmit="return confirmerSuppression({{ $filiere->id }})" action="{{ route('destroy.filiere', $filiere->id) }}" method="POST">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></button>
                                                                 </form>
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -165,6 +186,14 @@
         <script src="assets/js/app.js"></script>
         <!-- En fin de body -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            function confirmerSuppression(id) {
+                var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette filiere ?");
+                return confirmation;
+            }
+        </script>
+
     </body>
 
 </html>

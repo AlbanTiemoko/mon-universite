@@ -30,18 +30,30 @@
                 @else
                     {{-- Boutons visiteur non connecté --}}
                     <div class="d-flex">
-                        <a class="btn btn-outline-warning bg-warning font-weight-bold mr-3" href="{{ route('login') }}">
-                            <i class="fas fa-user-graduate mr-2"></i>ESPACE ÉTUDIANT
+                        <a class="btn btn-outline-warning bg-warning" href="{{ route('login') }}">
+                            <i class="fas fa-user-graduate mr-2"></i>connexion/inscription
                         </a>
-                        <a class="btn btn-outline-white bg-white text-dark font-weight-bold" href="{{ route('etablissement.connexion') }}">
+                        <!--a class="btn btn-outline-white bg-white text-dark font-weight-bold" href="{{ route('etablissement.connexion') }}">
                             <i class="fas fa-school mr-2"></i>ESPACE ÉTABLISSEMENT
-                        </a>
+                        </a-->
                     </div>
                 @endauth
             </div>
           </div>
       </div>
     </div>
+
+    @if(session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+            <button class="close font-weight-normal" data-dismiss="alert">x</button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+    @endif
+
     <div class="container-fluid">
       <div class="row my-lg-5 d-flex justify-content-center">
           <div class="col-md-4 align-self-center">

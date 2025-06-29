@@ -31,12 +31,18 @@
             </div>
             <div class="row">
                 <div class="col text-center font-weight-bold text-white py-5">
-                    <h2>Groupe EDHEC Abidjan</h2>
+                    <h2>{{$etablissement->nom}} ({{$etablissement->reference}})</h2>
                 </div>
             </div>
             <div class="row">
-                <div class="col text-left font-weight-bold text-white py-3">
-                    <span>Ville/Commune: Abidjan Cocody Cité des Arts Rue C42</span>
+                <div class="col-md-4 text-left font-weight-bold text-white py-3">
+                    <span>Commune/quartier : {{ $etablissement->commune_rue }}</span>
+                </div>
+                <div class="col-md-4 text-center font-weight-bold text-white py-3">
+                    <span>Ville : {{ $etablissement->ville }}</span>
+                </div>
+                <div class="col-md-4 text-right font-weight-bold text-white py-3">
+                    <span>Contacts : {{ $etablissement->contacts }}</span>
                 </div>
             </div>
         </div>
@@ -44,7 +50,8 @@
       <div class="container my-5">
         <div class="row">
             <div class="col text-center">
-                <a href="{{ route('description.school') }}" class="btn btn-outline-success rounded-pill mr-3 font-weight-bold text_info">Informations générales</a><a href="{{ route('filieres.school') }}" class="btn btn-outline-success rounded-pill ml-5 font-weight-bold text_filière">Filières/Facultés</a>
+                <a href="{{ route('description.school', $etablissement->slug) }}" class="btn btn-outline-success rounded-pill mr-3 font-weight-bold text_info">Informations générales</a>
+                <a href="{{ route('filieres.school', $etablissement->slug) }}" class="btn btn-outline-success rounded-pill ml-5 font-weight-bold text_filière">Filières/Facultés</a>
             </div>
         </div>
       </div>
@@ -58,110 +65,103 @@
                 </div>
               </div>
               <div class="container bg-fil pl-5 py-4">
-                <form action="traitement.php">
-                  <div class=" form-group row pb-4">
-                    <div class="col-md-6">
-                      <label for="formGroupExampleInput">Votre diplôme actuel</label>
-                      <select class="form-control w-75">
-                        <option>Tous</option>
-                        <option>BAC-5 et Plus</option>
-                        <option>BAC+4</option>
-                        <option>BAC+3</option>
-                        <option>BAC+2</option>
-                        <option>BAC</option>
-                        <option>BT</option>
-                        <option>BEPC</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="formGroupExampleInput">Diplôme souhaité</label>
-                      <select class="form-control w-75">
-                        <option>Tous</option>
-                        <option>Doctorat</option>
-                        <option>Master 1 & 2</option>
-                        <option>Licence</option>
-                        <option>BTS / DUT</option>
-                        <option>Certificat</option>
-                        <option>Formation Qualifiante</option>
-                      </select>
-                    </div>
+                <form method="GET" action="{{ route('filieres.school', $etablissement->slug) }}">
+                  <div class="form-group row pb-4">
+                      <div class="col-md-6">
+                          <label>Votre diplôme actuel</label>
+                          <select name="diplome_requis" class="form-control w-75">
+                              <option value="">Tous</option>
+                              @foreach($diplomeRequis as $item)
+                              <option value="{{ $item }}" 
+                                  {{ request('diplome_requis') == $item ? 'selected' : '' }}>
+                                  {{ $item }}
+                              </option>
+                              @endforeach
+                          </select>
+                      </div>
+                      <div class="col-md-6">
+                          <label>Diplôme souhaité</label>
+                          <select name="diplome_final" class="form-control w-75">
+                              <option value="">Tous</option>
+                              @foreach($diplomeFinaux as $item)
+                              <option value="{{ $item }}"
+                                  {{ request('diplome_final') == $item ? 'selected' : '' }}>
+                                  {{ $item }}
+                              </option>
+                              @endforeach
+                          </select>
+                      </div>
                   </div>
                   <div class="row form-group">
-                    <div class="col-md-6">
-                      <label for="formGroupExampleInput">Mode d'etude</label>
-                      <select class="form-control w-75">
-                        <option>Tous</option>
-                        <option>Temps Plein (Cours du jours)</option>
-                        <option>Cours du Soir</option>
-                        <option>Cours en Ligne</option>
-                      </select>
+                      <div class="col-md-6">
+                          <label>Mode d'étude</label>
+                          <select name="mode_etude" class="form-control w-75">
+                              <option value="">Tous</option>
+                              @foreach($modeEtudes as $item)
+                              <option value="{{ $item }}"
+                                  {{ request('mode_etude') == $item ? 'selected' : '' }}>
+                                  {{ $item }}
+                              </option>
+                              @endforeach
+                          </select>
+                      </div>
+                      <div class="col-md-6">
+                          <button type="submit" class="btn btn-success font-weight-bold w-75">
+                              TROUVER FILIÈRES/FACULTÉS
+                          </button>
+                          <a href="{{ route('filieres.school', $etablissement->slug) }}" 
+                            class="btn btn-secondary mt-2 w-75">
+                              Réinitialiser
+                          </a>
+                      </div>
+                  </div>
+              </form>
+              </div>
+              @foreach($filieres as $filiere)
+                <div class="container {{ $loop->iteration % 2 == 0 ? 'bg-fil' : 'bg-white' }} py-4 my-5">
+                    <div class="row pl-5">
+                        <div class="col-md-9">
+                            <h6 class="font-weight-bold">
+                                {{ $filiere->nom }} <br>
+                                <span class="text-primary">{{ $filiere->diplome_final }}</span>
+                            </h6>
+                        </div>
+                        <div class="col-md-3 pt-n5">
+                            <img src="{{ asset($etablissement->logo) }}" alt="Logo" width="111" height="118">
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                      <button type="submit" class="btn btn-success font-weight-bold w-75 search">TROUVER FILIERES/FACULTES</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="container bg-white my-5">
-                <div class="row pl-5">
-                  <div class="col-md-9">
-                    <h6 class="font-weight-bold">Informatique Développeur d'Application <br><span class="text-primary"> BTS D'ETAT / DUT</span></h6>
-                  </div>
-                  <div class="col-md-3 pt-n5">
-                    <img src="/assets/Images/LOGO SCHOOL.png" alt="">
-                  </div>
-                </div>
-                <div class="row pl-5 mt-md-n5">
-                  <div class="col-md-6">
-                    <h6> <strong> Diplôme réquis</strong>: BAC F2, C, D, E <br><strong>Durée</strong>: 03 ans <br><strong>Montant de la formation</strong>: 200 000 par an</h6>
-                  </div>
-                  <div class="col-md-6">
-                    <h6> <strong> Mode d'etude</strong>: Temps plein, <br> Cours du soir <br><strong>Prise en charge</strong>: -25%</h6>
-                  </div>
-                </div>
-                <div class="row pl-5 mt-4">
-                  <div class="col-md-6">
-                    <a href="{{ route('inscription') }}" class="btn btn-success font-weight-bold w-75 now">INSCRIVEZ VOUS MAINTENANT</a>
-                  </div>
-                </div>
-              </div>
-              <div class="container bg-fil py-4 my-5">
-                <div class="row pl-5">
-                  <div class="col-md-9">
-                    <h6 class="font-weight-bold">Génie Logiciel et TIC <br><span class="text-primary"> LICENCE PROFESSIONNELLE / INGENIEURIE</span></h6>
-                  </div>
-                  <div class="col-md-3 pt-n5">
-                    <img src="/assets/Images/LOGO SCHOOL.png" alt="">
-                  </div>
-                </div>
-                <div class="row pl-5 mt-md-n5">
-                  <div class="col-md-6">
-                    <h6> <strong> Diplôme réquis</strong>: BTS IDA, RIT <br><strong>Durée</strong>: 01 ans <br><strong>Montant de la formation</strong>: 400 000 par an</h6>
-                  </div>
-                  <div class="col-md-6">
-                     <h6> <strong> Mode d'etude</strong>: Cours du soir <br><strong>Prise en charge</strong>: -25%</h6>
-                  </div>
-                </div>
-                <div class="row pl-5 mt-4">
-                  <div class="col-md-6">
-                    <a href="{{ route('inscription') }}" class="btn btn-success font-weight-bold w-75 now">INSCRIVEZ VOUS MAINTENANT</a>
-                  </div>
-                </div>
-              </div>
 
-              <ul class="pagination justify-content-center pb-4">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
-                </li>
-                <li class="page-item active" aria-current="page">
-                  <a class="page-link" href="filieres_school.html">1 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Suivant</a>
-                </li>
-              </ul>
+                    <div class="row pl-5 mt-md-n5">
+                        <div class="col-md-6">
+                            <h6>
+                                <strong> Diplôme réquis</strong>: {{ $filiere->diplome_requis }} <br>
+                                <strong>Durée</strong>: {{ $filiere->duree }} ans <br>
+                                <strong>Montant annuel</strong>: {{ $filiere->montant_formate }}
+                            </h6>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>
+                                <strong> Mode d'etude</strong>: 
+                                @foreach($filiere->mode_etudes as $mode)
+                                    {{ $mode->nom }}<br>
+                                @endforeach<br>
+                                <strong>Prise en charge</strong>: {{ $filiere->prise_en_charge }}
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="row pl-5 mt-4">
+                        <div class="col-md-6">
+                            <a href="{{ route('inscription', ['filiere_id' => $filiere->id, 'etablissement_id' => $filiere->etablissement->id]) }}"
+                              class="btn btn-success font-weight-bold w-75 now">
+                                INSCRIVEZ VOUS MAINTENANT
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+              {{ $filieres->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
 
             </div>
           </div>

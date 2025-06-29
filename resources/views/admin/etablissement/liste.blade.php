@@ -141,9 +141,9 @@
                                                                 @endif
                                                             </td>
                                                             <td class="d-flex">
-                                                                <a href="#" class="link"><button type="button" class="btn btn-primary btn-sm mr-1"><i class="fa fa-eye text-white"></i></a></button>
-                                                                <a href="#" class="link"><button type="button" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pen text-white"></i></a></button>
-                                                                <form onsubmit="return confirmerSuppression()" action="#" method="POST">
+                                                                <a href="{{ route('description.school', $etablissement->slug) }}" class="link"><button type="button" class="btn btn-primary btn-sm mr-1"><i class="fa fa-eye text-white"></i></a></button>
+                                                                <a href="{{ route('etablissement.edit', $etablissement->id) }}" class="link"><button type="submit" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pen text-white"></i></a></button>
+                                                                <form onsubmit="return confirmerSuppression({{ $etablissement->id }})" action="{{ route('destroy.etablissement', $etablissement->id) }}" method="POST">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></button>
                                                                 </form>
@@ -184,6 +184,14 @@
         <script src="assets/js/app.js"></script>
         <!-- En fin de body -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            function confirmerSuppression(id) {
+                var confirmation = confirm("Êtes-vous sûr de vouloir supprimer cette etablissement ?");
+                return confirmation;
+            }
+        </script>
+
     </body>
 
 </html>

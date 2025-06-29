@@ -12,6 +12,8 @@ use App\Models\Newsletter;
 use App\Models\TypeFiliere;
 use App\Models\Etablissement;
 use App\Models\Inscription;
+use App\Models\Filiere;
+use App\Models\Avis;
 
 class DashboardController extends Controller
 {
@@ -21,7 +23,9 @@ class DashboardController extends Controller
         $etablissements = Etablissement::all();
         $newsletters = Newsletter::all();
         $inscriptions = Inscription::all();
-        return view("admin.index", compact('etudiants', 'etablissements', 'newsletters', 'inscriptions'));
+        $inscription_envoye = Inscription::where('etat', 1)->get();
+        $inscription_traite = Inscription::where('etat', 2)->get();
+        return view("admin.index", compact('etudiants', 'etablissements', 'newsletters', 'inscriptions', 'inscription_envoye', 'inscription_traite'));
     }
 
     public function connexion()
@@ -106,9 +110,43 @@ class DashboardController extends Controller
         return view("admin.etablissement.liste", compact('etablissements'));
     }
 
-    public function liste_filiere()
+    public function liste_filiere(Request $request)
     {
-        return view("admin.filiere.liste");
+        $type_filiere = TypeFiliere::all();
+        
+        $query = Filiere::with(['etablissement', 'type_filiere']);
+
+        if ($request->filled('reference')) {
+            $query->where('reference', 'like', '%' . $request->reference . '%');
+        }
+
+        if ($request->filled('nom')) {
+            $query->where('nom', 'like', '%' . $request->nom . '%');
+        }
+
+        if ($request->filled('montant')) {
+            $query->where('montant_annuel', '<=', (float) $request->montant);
+        }
+
+        if ($request->filled('duree')) {
+            $query->where('duree', '=', $request->duree);
+        }
+
+        if ($request->filled('type')) {
+            $query->whereHas('type_filiere', function ($q) use ($request) {
+                $q->where('nom', 'like', '%' . $request->type . '%');
+            });
+        }
+
+        if ($request->filled('etablissement')) {
+            $query->whereHas('etablissement', function ($q) use ($request) {
+                $q->where('nom', 'like', '%' . $request->etablissement . '%');
+            });
+        }
+
+        $filiere = $query->paginate(15);
+
+        return view("admin.filiere.liste", compact('filiere', 'type_filiere'));
     }
 
     public function nouvelle_filiere()
@@ -146,22 +184,94 @@ class DashboardController extends Controller
 
     public function accueil_inscription()
     {
-        return view("admin.inscription.accueil");
+        $inscriptions = Inscription::where('etat', 1)->get();
+        $inscription_traite = Inscription::where('etat', 2)->get();
+        return view("admin.inscription.accueil", compact('inscriptions', 'inscription_traite'));
     }
 
-    public function liste_inscription()
+    public function liste_inscription(Request $request)
     {
-        return view("admin.inscription.liste");
+        $query = Inscription::query()
+            ->with(['user', 'etablissement']); // si tu veux accéder à ces relations
+
+        if ($request->filled('reference')) {
+            $query->where('reference', 'like', '%' . $request->reference . '%');
+        }
+        if ($request->filled('date_demande')) {
+            $query->whereDate('created_at', $request->date_demande);
+        }
+        if ($request->filled('nom')) {
+            $query->where('nom', 'like', '%' . $request->nom . '%');
+        }
+        if ($request->filled('prenom')) {
+            $query->where('prenom', 'like', '%' . $request->prenom . '%');
+        }
+        if ($request->filled('telephone')) {
+            $query->where('telephone', 'like', '%' . $request->telephone . '%');
+        }
+        if ($request->filled('niveau_etude')) {
+            $query->where('niveau_etude', 'like', '%' . $request->niveau_etude . '%');
+        }
+        if ($request->filled('diplome_final')) {
+            $query->where('diplome_souhait', 'like', '%' . $request->diplome_final . '%');
+        }
+        if ($request->filled('forme_etude')) {
+            $query->where('mode_etude_id', $request->forme_etude);
+        }
+        if ($request->filled('etablissement')) {
+            $query->whereHas('etablissement', function ($q) use ($request) {
+                $q->where('nom', 'like', '%' . $request->etablissement . '%');
+            });
+        }
+        if ($request->filled('etat')) {
+            $query->where('etat', $request->etat);
+        }
+
+        $inscriptions = $query->paginate(15); // pagination
+
+        return view("admin.inscription.liste", compact('inscriptions'));
     }
 
     public function accueil_avis()
     {
-        return view("admin.avis.accueil");
+        $avis_non_visible = Avis::where('etat', 0)->get();
+        $avis_visible = Avis::where('etat', 1)->get();
+        return view("admin.avis.accueil", compact('avis_non_visible', 'avis_visible'));
     }
 
-    public function liste_avis()
+    public function liste_avis(Request $request)
     {
-        return view("admin.avis.liste");
+        $query = Avis::with('etablissement');
+
+        if ($request->filled('date')) {
+            $query->whereDate('created_at', $request->date);
+        }
+
+        if ($request->filled('nom')) {
+            $query->where('nom', 'like', '%' . $request->nom . '%');
+        }
+
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+
+        if ($request->filled('avis')) {
+            $query->where('avis', 'like', '%' . $request->avis . '%');
+        }
+
+        if ($request->filled('etablissement')) {
+            $query->whereHas('etablissement', function ($q) use ($request) {
+                $q->where('nom', 'like', '%' . $request->etablissement . '%');
+            });
+        }
+
+        if ($request->filled('etat')) {
+            $query->where('etat', $request->etat);
+        }
+
+        $avis = $query->paginate(20);
+
+        return view("admin.avis.liste", compact('avis'));
     }
 
     public function accueil_newsletter(Request $request)

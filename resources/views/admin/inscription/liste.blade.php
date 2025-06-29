@@ -45,12 +45,12 @@
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                        <h4 class="mb-sm-0 font-size-18">LISTE DES DEMANDES D'INSCRIPTION</h4>
+                                        <h4 class="mb-sm-0 font-size-18">LISTE DES DEMANDES D'INSCRIPTION ({{ $inscriptions->count() }})</h4>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="get">
+                                            <form action="{{ route('liste.inscription') }}" method="GET">
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
@@ -58,39 +58,47 @@
                                                                 <div class="row form-group">
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Reférence</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="reference" value="{{ request('reference') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Date Demande</label>
-                                                                        <input type="date" class="form-control">
+                                                                        <input type="date" class="form-control" name="date_demande" value="{{ request('date_demande') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Nom Etudiant</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="nom" value="{{ request('nom') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Prenom Etud</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="prenom" value="{{ request('prenom') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Numero Tel</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="telephone" value="{{ request('telephone') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Niveau d'etude</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="niveau_etude" value="{{ request('niveau_etude') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Diplome final</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="diplome_final" value="{{ request('diplome_final') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Forme d'etude</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="forme_etude" value="{{ request('forme_etude') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Etablissement</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="etablissement" value="{{ request('etablissement') }}">
+                                                                    </div>
+                                                                    <div class="col mb-4">
+                                                                        <label for="formGroupExampleInput">Etat</label>
+                                                                        <select class="form-control select2" name="etat">
+                                                                            <option value=""></option>
+                                                                            <option value="1" {{ request('etat')=='1' ? 'selected':'' }}>Envoyé</option>
+                                                                            <option value="2" {{ request('etat')=='2' ? 'selected':'' }}>Traité</option>
+                                                                        </select>
                                                                     </div>
                                                                     <div class="col">
                                                                         <label for="formGroupExampleInput" class="text-white">Numero(*)</label>
@@ -121,38 +129,30 @@
                                                             <th class="align-middle">Diplome souhaité</th>
                                                             <th class="align-middle">Forme d'etude</th>
                                                             <th class="align-middle">Etablissement</th>
-                                                            <th class="align-middle">Action</th>
+                                                            <th class="align-middle">Etat</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($inscriptions as $inscription)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{ $inscription->reference }}</a> </td>
+                                                            <td>{{ $inscription->created_at }}</td>
+                                                            <td>{{ $inscription->user->name }}</td>
+                                                            <td>{{ $inscription->user->firstname }}</td>
+                                                            <td>{{ $inscription->telephone }}</td>
+                                                            <td>{{ $inscription->niveau_etude }}</td>
+                                                            <td>{{ $inscription->diplome_souhait }}</td>
+                                                            <td>{{ $inscription->mode_etude->nom }}</td>
+                                                            <td>{{ $inscription->etablissement->nom }}</td>
                                                             <td>
-                                                                07 Oct, 2019
-                                                            </td>
-                                                            <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td class="d-flex">
-                                                                <a href="#" class="link"><button type="button" class="btn btn-primary btn-sm mr-1"><i class="fa fa-eye text-white"></i></a></button>
+                                                                @if ($inscription->etat == '1')
+                                                                    <span class="badge badge-traite">Envoyé</span>
+                                                                @else ($inscription->etat == '2')
+                                                                    <span class="badge badge-ferme">Traité</span>
+                                                                @endif
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>

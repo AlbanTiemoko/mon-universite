@@ -29,134 +29,18 @@
                     <a href="{{ route('accueil') }}" class="home">Accueil</a> <span>/ Filières Tertiaires</span>
                 </div>
             </div>
-            <div class="row mb-5">
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Genié Logiciel</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">RIT</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Gestion Com</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Logistique</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Sécretarat</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">GRH</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Finances/Comptabilité</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Marketing Digital</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">IDA</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Gestion de Projets</a>
-              </div>
-            </div>
-            <div class="row mb-5">
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Genié Logiciel</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">RIT</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Gestion Com</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Logistique</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Sécretarat</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">GRH</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Finances/Comptabilité</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Marketing Digital</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">IDA</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Gestion de Projets</a>
-              </div>
-            </div>
-            <div class="row mb-5">
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Genié Logiciel</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">RIT</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Gestion Com</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Logistique</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Sécretarat</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">GRH</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Finances/Comptabilité</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Marketing Digital</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">IDA</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Gestion de Projets</a>
-              </div>
-            </div>
-            <div class="row mb-5">
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Genié Logiciel</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">RIT</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Gestion Com</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Logistique</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Sécretarat</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">GRH</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Finances/Comptabilité</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Marketing Digital</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">IDA</a>
-              </div>
-              <div class="col">
-                <a href="#" class="btn btn-outline-primary rounded-pill w-100" role="button">Gestion de Projets</a>
-              </div>
-            </div>
+            @foreach($filieres_tertiaire->chunk(10) as $group)
+                <div class="row mb-5">
+                    @foreach($group as $filiere)
+                        <div class="col">
+                            <a href="{{ route('filieres.tertiaire', ['filiere' => $filiere->id]) }}"
+                              class="btn btn-outline-primary rounded-pill w-100 {{ request('filiere') == $filiere->id ? 'active' : '' }}">
+                              {{ $filiere->affichage }}
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach            
         </div>
       </div>
       <div class="container mb-4">
@@ -172,23 +56,27 @@
         </div>
         <div class="row">
           <div class="col">
-            <form>
+            <form method="GET" action="{{ route('filieres.tertiaire') }}">
               <div class="row">
                 <div class="col">
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option>Selectionnez une ville</option>
-                    @foreach($villes as $ville)
-                    <option>{{$ville->nom}}</option>
-                    @endforeach
-                </select>
+                  <select class="form-control" name="ville">
+                      <option>Selectionnez une ville</option>
+                      @foreach($villes as $ville)
+                      <option value="{{ $ville->id }}" {{ request('ville') == $ville->id ? 'selected' : '' }}>
+                          {{ $ville->nom }}
+                      </option>
+                      @endforeach
+                  </select>
                 </div>
                 <div class="col">
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option>Selectionnez une commune</option>
-                    @foreach($communes as $commune)
-                    <option>{{$commune->nom}}</option>
-                    @endforeach
-                </select>
+                  <select class="form-control" name="commune">
+                      <option value="">Sélectionnez une commune</option>
+                      @foreach($communes as $commune)
+                          <option value="{{ $commune->id }}" {{ request('commune') == $commune->id ? 'selected' : '' }}>
+                              {{ $commune->nom }}
+                          </option>
+                      @endforeach
+                  </select>
                 </div>
                 <div class="col">
                   <button type="submit" class="btn btn-danger w-100">Recherchez</button>
@@ -206,39 +94,30 @@
 
               <div class="row mb-5">
               </div>
+          @foreach($etablissements as $etablissement)
           <div class="container bg-white mb-4 pb-4">
-              <div class="row">
+            <div class="row">
                   <div class="col-md-9 pl-4 pt-4">
-                      <h4>Groupe EDHEC Abidjan</h4>
+                      <h4>{{$etablissement->nom}}</h4>
                   </div>
                   <div class="col-md-3">
-                      <img src="/assets/Images/LOGO SCHOOL.png" class="pt-1" alt="">
+                      <img src="{{ asset($etablissement->logo) }}" alt="Logo" width="111" height="118" class="pt-1">
                   </div>
               </div>
               <div class="row mt-md-n5">
                   <div class="col-md-3 pl-4">
-                      <img src="/assets/Images/school.png" alt="">
+                      <img src="{{ asset($etablissement->cover) }}" alt="cover" width="302" height="130">
                   </div>
                   <div class="col-md-7 ml-5 pl-5 pt-1 col-sm-12">
-                      <p>Ville: <strong> Abidjan</strong> <br> Adresse: <strong> Cococdy, Cité des Arts Rue C42</strong> <br>Numéro téléphone: <strong> (225) 07 224 878 66 / 07 470 358 34</strong></p>
-                      <a href="{{ route('filieres.school') }}" type="button" class="btn btn-primary btn-sm orange font-weight-bold">VOIR TOUTES LES FILIERES</a>
-                      <a href="{{ route('description.school') }}" type="button" class="btn btn-primary btn-sm green font-weight-bold">DETAILS DE L'UNIVERSITE</a>
+                      <p>Ville: <strong> {{ $etablissement->ville }}</strong> <br> Adresse: <strong> {{ $etablissement->commune_rue }}</strong> <br>Contacts : <strong> {{ $etablissement->contacts }}</strong></p>
+                      <a href="{{ route('filieres.school', $etablissement->slug) }}" type="button" class="btn btn-primary btn-sm orange font-weight-bold">VOIR TOUTES LES FILIERES</a>
+                      <a href="{{ route('description.school', $etablissement->slug) }}" type="button" class="btn btn-primary btn-sm green font-weight-bold">DETAILS DE L'UNIVERSITE</a>
                 </div>   
               </div>
           </div>
-              <ul class="pagination justify-content-center pb-4">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
-                </li>
-                <li class="page-item active" aria-current="page">
-                  <a class="page-link" href="filieres.html">1 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Suivant</a>
-                </li>
-              </ul>
+            @endforeach
+              <div class="justify-content-center pb-1">
+              {{ $etablissements->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
             </div>
           </div>
         </div>   

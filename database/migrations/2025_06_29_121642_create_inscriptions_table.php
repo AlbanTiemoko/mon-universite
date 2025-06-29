@@ -24,7 +24,7 @@ return new class extends Migration
             $table->year('annee_obtention_diplome');
             $table->string('diplome_souhait');
             $table->foreignId('mode_etude_id')->constrained('mode_etudes');
-            $table->string('domaine_etude');
+            $table->foreignId('filiere_id')->constrained('filieres');
             $table->foreignId('etablissement_id')->constrained('etablissements');
             $table->string('info_additionnel');
             $table->boolean('etat');

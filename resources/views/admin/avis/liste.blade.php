@@ -44,13 +44,25 @@
                             @include('components.sidebar')
                             <!-- start page title -->
                                 <div class="col-md-10 mt-4">
+
+                                    @if(session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                            <button class="close font-weight-normal" data-dismiss="alert">x</button>
+                                        </div>
+                                    @endif
+
+                                    @if(session('error'))
+                                        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                                    @endif
+
                                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                        <h4 class="mb-sm-0 font-size-18">LISTE DES AVIS ETABLISSEMENTS</h4>
+                                        <h4 class="mb-sm-0 font-size-18">LISTE DES AVIS ETABLISSEMENTS ({{$avis->count()}})</h4>
                                     </div>
 
                                     <div class="row">
                                         <div class="col">
-                                            <form action="" method="get">
+                                            <form action="{{ route('liste.avis') }}" method="GET">
                                                 <div class="card mini-stats-wid">
                                                     <div class="card-body">
                                                         <div class="d-flex">
@@ -58,38 +70,34 @@
                                                                 <div class="row form-group">
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Date</label>
-                                                                        <input type="date" class="form-control">
+                                                                        <input type="date" class="form-control" name="date" value="{{ request('date') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Nom</label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                    <div class="col mb-4">
-                                                                        <label for="formGroupExampleInput">Prenom</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="nom" value="{{ request('nom') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Email</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="email" value="{{ request('email') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Avis</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="avis" value="{{ request('avis') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Nom Etablissement</label>
-                                                                        <input type="text" class="form-control">
+                                                                        <input type="text" class="form-control" name="etablissement" value="{{ request('etablissement') }}">
                                                                     </div>
                                                                     <div class="col mb-4">
                                                                         <label for="formGroupExampleInput">Etat</label>
-                                                                        <select class="form-control " required>
-                                                                            <option></option>
-                                                                            <option>Non Visible</option>
-                                                                            <option>Visible</option>
+                                                                        <select class="form-control" name="etat">
+                                                                            <option value="">Tous</option>
+                                                                            <option value="0" {{ request('etat') === '0' ? 'selected' : '' }}>Non Visible</option>
+                                                                            <option value="1" {{ request('etat') === '1' ? 'selected' : '' }}>Visible</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <label for="formGroupExampleInput" class="text-white">Numero(*)</label>
+                                                                        <label for="formGroupExampleInput" class="text-white">Numero(*)</label></br>
                                                                         <button type="submit" class="btn btn-primary font-weight-bold">RECHERCHER</button>
                                                                     </div>
                                                                 </div>
@@ -110,7 +118,6 @@
                                                         <tr>
                                                             <th class="align-middle">Date</th>
                                                             <th class="align-middle">Nom</th>
-                                                            <th class="align-middle">Prenom</th>
                                                             <th class="align-middle">Email</th>
                                                             <th class="align-middle">Avis</th>
                                                             <th class="align-middle">Note</th>
@@ -120,33 +127,40 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach($avis as $avi)
                                                         <tr>
-                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">#SK2540</a> </td>
-                                                            <td>Neal Matthews</td>
+                                                            <td><a href="javascript: void(0);" class="text-body fw-bold">{{$avi->created_at}}</a> </td>
+                                                            <td>{{$avi->nom}}</td>
+                                                            <td>{{$avi->email}}</td>
+                                                            <td>{{$avi->avis}}</td>
                                                             <td>
-                                                                07 Oct, 2019
+                                                                @for ($i = 1; $i <= 5; $i++)
+                                                                    @if ($i <= $avi->note)
+                                                                        <span style="color: gold;">&#9733;</span> {{-- étoile pleine --}}
+                                                                    @else
+                                                                        <span style="color: #ccc;">&#9733;</span> {{-- étoile vide --}}
+                                                                    @endif
+                                                                @endfor
+                                                            </td>
+                                                            <td>{{$avi->etablissement->nom}}</td>
+                                                            <td>
+                                                                @if ($avi->etat == '1')
+                                                                    <span class="badge badge-ouvert">Visible</span>
+                                                                @else ($avi->etat == '0')
+                                                                    <span class="badge badge-ferme">Non visible</span>
+                                                                @endif
                                                             </td>
                                                             <td>
-                                                                $400
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge badge-pill badge-soft-success font-size-11">Paid</span>
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <i class="fab fa-cc-mastercard me-1"></i> Mastercard
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">
-                                                                    Valider
-                                                                </button>
+                                                                @if($avi->etat != 1)
+                                                                <form onsubmit="return confirmerValidation({{ $avi->id }})" action="{{ route('etat.avis', ['id' => $avi->id, 'etat' => 1]) }}" method="POST">
+                                                                    @csrf
+                                                                    {{method_field('PUT')}}
+                                                                    <button type="submit" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">Valider</button>
+                                                                </form>
+                                                                @endif
                                                             </td>
                                                         </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -176,6 +190,13 @@
 
         <!-- App js -->
         <script src="assets/js/app.js"></script>
+
+        <script>
+        function confirmerValidation(id) {
+            var confirmation = confirm("Êtes-vous sûr de vouloir valider cet avis ?");
+            return confirmation;
+        }
+        </script>
     </body>
 
 </html>

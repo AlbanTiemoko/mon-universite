@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Etablissement extends Model
 {
@@ -12,7 +13,7 @@ class Etablissement extends Model
     ];
     
     public function filieres(){
-        return $this->hasMany(filiere::class);
+        return $this->hasMany(Filiere::class);
     }
 
     public function avis(){
@@ -50,6 +51,33 @@ class Etablissement extends Model
         })->implode(' | ');
     }
 
+    public function getCommuneRueAttribute()
+    {
+        if ($this->adresses->isEmpty()) {
+            return 'Non spécifiée';
+        }
+
+        return $this->adresses->map(function ($adresse) {
+            return implode(', ', array_filter([
+                optional($adresse->commune)->nom,
+                $adresse->rue
+            ]));
+        })->implode(' | ');
+    }
+
+    public function getVilleAttribute()
+    {
+        if ($this->adresses->isEmpty()) {
+            return 'Non spécifiée';
+        }
+
+        return $this->adresses
+            ->map(fn ($adresse) => optional($adresse->ville)->nom)
+            ->filter()
+            ->unique()
+            ->implode(' | ');
+    }
+
     public function adresses()
     {
         return $this->hasMany(EtablissementVilleCommune::class);
@@ -62,6 +90,38 @@ class Etablissement extends Model
         }
 
         return $this->numero;
+    }
+
+    public function getUrlSpotEmbedAttribute()
+    {
+        $url = $this->url_spot;
+
+        // ✅ YouTube standard
+        if (Str::contains($url, 'youtube.com/watch')) {
+            parse_str(parse_url($url, PHP_URL_QUERY), $query);
+            $videoId = $query['v'] ?? null;
+            return $videoId ? "https://www.youtube.com/embed/{$videoId}" : $url;
+        }
+
+        // ✅ YouTube short
+        if (Str::contains($url, 'youtu.be/')) {
+            $videoId = Str::after($url, 'youtu.be/');
+            return "https://www.youtube.com/embed/{$videoId}";
+        }
+
+        // ✅ Vimeo
+        if (Str::contains($url, 'vimeo.com/')) {
+            $videoId = Str::afterLast($url, '/');
+            return "https://player.vimeo.com/video/{$videoId}";
+        }
+
+        // ✅ Dailymotion
+        if (Str::contains($url, 'dailymotion.com/video/')) {
+            $videoId = Str::after($url, 'video/');
+            return "https://www.dailymotion.com/embed/video/{$videoId}";
+        }
+
+        return $url; // fallback brut
     }
 
 }
