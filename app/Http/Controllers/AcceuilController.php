@@ -291,6 +291,9 @@ class AcceuilController extends Controller
         $diplomeRequisAuto = null;
         $diplomeFinalAuto = null;
 
+        $diplomeRequisAuto = $request->diplome_requis;
+        $diplomeFinalAuto = $request->diplome_final;
+
         if ($request->filled('filiere_id')) {
             $filiereSelectionnee = Filiere::find($request->filiere_id);
 
@@ -312,17 +315,36 @@ class AcceuilController extends Controller
         ));
     }
 
-    public function search()
-{
-    // Solution 3: Utiliser une sous-requête pour éviter les doublons
-    $filieres = Filiere::with('etablissement')
-                ->whereIn('id', function($query) {
-                    $query->selectRaw('MIN(id)')
-                          ->from('filieres')
-                          ->groupBy('nom');
-                })
-                ->get();
-    
-    return view("search", compact('filieres'));
-}
+    public function search(Request $request)
+    {
+        $query = Filiere::with(['etablissement', 'mode_etudes']);
+
+        if ($request->filled('diplome_requis')) {
+            $query->where('diplome_requis', $request->diplome_requis);
+        }
+
+        if ($request->filled('domaine')) {
+            $query->where('nom', $request->domaine);
+        }
+
+        if ($request->filled('mode')) {
+            $query->whereHas('mode_etudes', function ($q) use ($request) {
+                $q->where('nom', $request->mode);
+            });
+        }
+
+        // Évite les doublons (1 par nom) et applique la pagination
+        $filieres = $query->whereIn('id', function ($sub) {
+            $sub->selectRaw('MIN(id)')
+                ->from('filieres')
+                ->groupBy('nom');
+        })->paginate(10); // 10 résultats par page
+
+        // Pour recharger les champs du formulaire
+        $diplomesRequis = Filiere::distinct()->pluck('diplome_requis');
+        $domaines = Filiere::distinct()->pluck('nom');
+        $modes = ModeEtude::distinct()->pluck('nom');
+
+        return view("search", compact('filieres', 'diplomesRequis', 'domaines', 'modes'));
+    }
 }

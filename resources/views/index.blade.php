@@ -38,50 +38,50 @@
                 <div class="col text-center">
                     <h5 class="mb-4 text-white font font-weight-bold">PROGRAME DE RECHERCHE RAPIDE</h5>
                 </div>
-              <form method="GET" action="{{ route('search') }}">
-                <div class="form-row">
-                  {{-- Diplôme requis --}}
-                  <div class="col">
-                    <select class="form-control" name="diplome_requis">
-                      <option value="">Votre diplôme actuel</option>
-                      @foreach($diplomesRequis as $d)
-                        <option value="{{ $d }}" {{ request('diplome_requis') == $d ? 'selected' : '' }}>
-                          {{ $d }}
-                        </option>
-                      @endforeach
-                    </select>
-                  </div>
+                  <form method="GET" action="{{ route('search') }}">
+                    <div class="form-row">
+                      {{-- Diplôme requis --}}
+                      <div class="col">
+                        <select class="form-control" name="diplome_requis">
+                          <option value="">Votre diplôme actuel</option>
+                          @foreach($diplomesRequis as $d)
+                            <option value="{{ $d }}" {{ request('diplome_requis') == $d ? 'selected' : '' }}>
+                              {{ $d }}
+                            </option>
+                          @endforeach
+                        </select>
+                      </div>
 
-                  {{-- Domaine d'étude --}}
-                  <div class="col">
-                    <select class="form-control" name="domaine">
-                      <option value="">Domaine d'étude</option>
-                      @foreach($domaines as $dom)
-                        <option value="{{ $dom }}" {{ request('domaine') == $dom ? 'selected' : '' }}>
-                          {{ $dom }}
-                        </option>
-                      @endforeach
-                    </select>
-                  </div>
+                      {{-- Domaine d'étude --}}
+                      <div class="col">
+                        <select class="form-control" name="domaine">
+                          <option value="">Domaine d'étude</option>
+                          @foreach($domaines as $dom)
+                            <option value="{{ $dom }}" {{ request('domaine') == $dom ? 'selected' : '' }}>
+                              {{ $dom }}
+                            </option>
+                          @endforeach
+                        </select>
+                      </div>
 
-                  {{-- Mode d'étude --}}
-                  <div class="col">
-                    <select class="form-control" name="mode">
-                      <option value="">Mode d'étude</option>
-                      @foreach($modes as $m)
-                        <option value="{{ $m }}" {{ request('mode') == $m ? 'selected' : '' }}>
-                          {{ $m }}
-                        </option>
-                      @endforeach
-                    </select>
-                  </div>
+                      {{-- Mode d'étude --}}
+                      <div class="col">
+                        <select class="form-control" name="mode">
+                          <option value="">Mode d'étude</option>
+                          @foreach($modes as $m)
+                            <option value="{{ $m }}" {{ request('mode') == $m ? 'selected' : '' }}>
+                              {{ $m }}
+                            </option>
+                          @endforeach
+                        </select>
+                      </div>
 
-                  {{-- Bouton --}}
-                  <div class="col">
-                    <button type="submit" class="btn btn-danger search">RECHERCHER</button>
-                  </div>
-                </div>
-              </form>
+                      {{-- Bouton --}}
+                      <div class="col">
+                        <button type="submit" class="btn btn-danger search">RECHERCHER</button>
+                      </div>
+                    </div>
+                  </form>
             </div>
             <div class="row my-4">
               <div class="col text-center">

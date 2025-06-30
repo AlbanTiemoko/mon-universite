@@ -45,51 +45,65 @@
             <div class="col text-center">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius nam maiores dolorum quis cumque vel commodi distinctio culpa hic quod explicabo, blanditiis illo amet non est! Et cupiditate saepe quam.</p>
             </div>
+            <div class="row bg-fil py-4 px-4">
+              <form method="GET" action="{{ route('search') }}">
+                <div class="form-row">
+                  {{-- Diplôme requis --}}
+                  <div class="col">
+                    <label for=""> Votre diplôme actuel </label>
+                    <select class="form-control" name="diplome_requis">
+                      <option value="">Votre diplôme actuel</option>
+                      @foreach($diplomesRequis as $d)
+                        <option value="{{ $d }}" {{ request('diplome_requis') == $d ? 'selected' : '' }}>
+                          {{ $d }}
+                        </option>
+                      @endforeach
+                    </select>
+                  </div>
+
+                  {{-- Domaine d'étude --}}
+                  <div class="col">
+                    <label for="">Filiere </label>
+                    <select class="form-control" name="domaine">
+                      <option value="">Domaine d'étude</option>
+                      @foreach($domaines as $dom)
+                        <option value="{{ $dom }}" {{ request('domaine') == $dom ? 'selected' : '' }}>
+                          {{ $dom }}
+                        </option>
+                      @endforeach
+                    </select>
+                  </div>
+
+                  {{-- Mode d'étude --}}
+                  <div class="col">
+                    <label for="">Mode d'étude </label>
+                    <select class="form-control" name="mode">
+                      <option value="">Mode d'étude</option>
+                      @foreach($modes as $m)
+                        <option value="{{ $m }}" {{ request('mode') == $m ? 'selected' : '' }}>
+                          {{ $m }}
+                        </option>
+                      @endforeach
+                    </select>
+                  </div>
+
+                  {{-- Bouton --}}
+                  <div class="col">
+                    <label for="">.</label>
+                    <button type="submit" class="btn btn-danger search">RECHERCHER</button>
+                  </div>
+                </div>
+              </form>
+            </div>
         </div>
       </div>
       <div class="bg-white">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3 bg-fil h-75">
-                        <h6 class="text-center">PROGRAMME DE RECHERCHE</h6>
-                        <form action="traitement.php">
-                            <div class="form-group row mt-3">
-                                <label for="formGroupExampleInput">Votre diplôme actuel</label>
-                                <select class="form-control">
-                                  <option>Tous</option>
-                                  <option>BAC-5 et Plus</option>
-                                </select>
-                              </div>
-                              <div class="form-group row mt-2">
-                                <label for="formGroupExampleInput">Filières ou facultés</label>
-                                <select class="form-control">
-                                    <option>Tous</option>
-                                    <option>Informatique Développeur d'Application</option>
-                                </select>
-                              </div>
-                              <div class="form-group row mt-2">
-                                <label for="formGroupExampleInput">Villes</label>
-                                <select class="form-control">
-                                    <option>Toutes</option>
-                                    <option>Abidjan</option>
-                                </select>
-                              </div>
-                              <div class="form-group row mt-2">
-                                <label for="formGroupExampleInput">Mode d'etude</label>
-                                <select class="form-control">
-                                    <option>Tous</option>
-                                    <option>Temps plein (cours du jours)</option>
-                                </select>
-                              </div>
-                              <div class="row form-group mt-5">
-                                    <button type="submit" class="btn btn-danger font-weight-bold w-100">RECHERCHE</button>
-                            </div>
-                        </form>
-                </div>
-                <div class="col-md-9">
+                <div class="col">
                   <div class="container">
                     @foreach($filieres as $filiere)
-                    <div class="bg-white my-5 p-4">
+                    <div class="{{ $loop->iteration % 2 == 0 ? 'bg-fil' : 'bg-white' }} my-5 p-4">
                         <div class="row pl-5">
                             <div class="col-md-9">
                                 <h5 class="font-weight-bold">{{ $filiere->nom }}</h5>
@@ -122,7 +136,12 @@
                         </div>
                         <div class="row pl-5 mt-4">
                             <div class="col-md-6">
-                                <a href="{{ route('inscription', ['slug' => $filiere->etablissement->slug, 'filiere' => $filiere->id]) }}" 
+                                <a href="{{ route('inscription', [
+                                        'filiere_id' => $filiere->id,
+                                        'etablissement_id' => $filiere->etablissement->id,
+                                        'diplome_requis' => $filiere->diplome_requis,
+                                        'diplome_final' => $filiere->diplome_final
+                                    ]) }}"
                                   class="btn btn-primary font-weight-bold w-75 now">
                                   INSCRIVEZ VOUS MAINTENANT
                                 </a>
@@ -130,20 +149,8 @@
                         </div>
                     </div>
                     @endforeach
-                </div>
-                      <ul class="pagination justify-content-center pb-4">
-                        <li class="page-item disabled">
-                          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
-                        </li>
-                        <li class="page-item active" aria-current="page">
-                          <a class="page-link" href="filieres_school.html">1 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">Suivant</a>
-                        </li>
-                      </ul>
+                </div class="d-flex justify-content-center">
+                      {{ $filieres->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
                 </div>
             </div>
         </div>
