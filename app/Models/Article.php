@@ -7,6 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $fillable = [
-        'reference', 'titre', 'image', 'description', 'date', 'user_updated_id',
+        'reference',
+        'titre',
+        'slug',
+        'image',
+        'description',
+        'date',
+        'user_created_id',
+        'user_updated_id'
     ];
+
+    // Génère automatiquement le slug
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($article) {
+            $article->slug = Str::slug($article->titre);
+            $article->reference = 'ACTU-'.uniqid();
+        });
+    }
 }
