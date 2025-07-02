@@ -19,8 +19,8 @@
             <h6 class="pb-3 {{ Route::is('liste.etablissement') ? 'text-primary' : '' }}">Liste</h6>
         </a>
 
-        <a href="{{ route('liste.filiere') }}" class="link {{ Route::is('liste.filiere') ? 'text-primary' : '' }}">
-            <p class="font-weight-bold h6 {{ Route::is('liste.filiere') || Route::is('nouvelle.filiere') || Route::is('type.filiere.liste') || Route::is('type.filiere.nouveau') ? 'text-primary' : '' }}">
+        <a href="{{ route('statistique.filiere') }}" class="link {{ Route::is('liste.filiere') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('statistique.filiere') || Route::is('liste.filiere') || Route::is('nouvelle.filiere') || Route::is('type.filiere.liste') || Route::is('type.filiere.nouveau') ? 'text-primary' : '' }}">
                 <i class="bx bx-file pr-2 pb-1"></i> Filieres
             </p>
         </a>
@@ -73,8 +73,8 @@
             <h6 class="pb-3 {{ Route::is('liste.admin') ? 'text-primary' : '' }}">Liste administrateurs</h6>
         </a>
 
-        <a href="{{ route('liste.commune') }}" class="link {{ Route::is('liste.commune') ? 'text-primary' : '' }}">
-            <p class="font-weight-bold h6 {{ Route::is('liste.commune') || Route::is('liste.commune') || Route::is('nouvelle.ville') || Route::is('nouvelle.commune') || Route::is('liste.mode.etude') || Route::is('nouveau.mode') ? 'text-primary' : '' }}">
+        <a href="{{ route('statistique.configuration') }}" class="link {{ Route::is('liste.commune') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('statistique.configuration') || Route::is('liste.commune') || Route::is('liste.commune') || Route::is('nouvelle.ville') || Route::is('nouvelle.commune') || Route::is('liste.mode.etude') || Route::is('nouveau.mode') ? 'text-primary' : '' }}">
                 <i class="bx bx-cog pr-2 pb-1"></i> Configuration
             </p>
         </a>

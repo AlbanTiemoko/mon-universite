@@ -30,6 +30,8 @@
         <link rel="stylesheet" href="/assets/css/index.css">
         <link rel="stylesheet" href="{{asset("assets/css/header-fixed.css")}}">
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
 
     <body>
@@ -49,13 +51,43 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col">
-                                            <div class="card mini-stats-wid">
+                                        <!-- Abonnements mensuels -->
+                                        <div class="col-xl-6 col-md-12 mb-4">
+                                            <div class="card shadow-sm">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
+                                                    <h5 class="card-title mb-3">
+                                                        <i class="fas fa-calendar-alt me-2"></i>Abonnements mensuels
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 300px;">
+                                                        <canvas id="monthlyChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Heures d'abonnement -->
+                                        <div class="col-xl-6 col-md-12 mb-4">
+                                            <div class="card shadow-sm">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-3">
+                                                        <i class="fas fa-clock me-2"></i>Heures d'abonnement
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 300px;">
+                                                        <canvas id="hourlyChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Évolution annuelle -->
+                                        <div class="col-12 mb-4">
+                                            <div class="card shadow-sm">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-3">
+                                                        <i class="fas fa-chart-line me-2"></i>Évolution annuelle
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 350px;">
+                                                        <canvas id="growthChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,6 +172,115 @@
         <script src="assets/js/app.js"></script>
         <!-- En fin de body -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Données passées depuis le contrôleur
+            const chartData = @json($chartData);
+            const monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+
+            // 1. Graphique mensuel (Line)
+            const monthlyLabels = Object.keys(chartData.monthly).map(m => monthNames[m-1]);
+            new Chart(document.getElementById('monthlyChart'), {
+                type: 'line',
+                data: {
+                    labels: monthlyLabels,
+                    datasets: [{
+                        label: 'Abonnements',
+                        data: Object.values(chartData.monthly),
+                        backgroundColor: 'rgba(58, 159, 241, 0.2)',
+                        borderColor: 'rgba(58, 159, 241, 1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.parsed.y} abonnements`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 2. Graphique horaire (Bar)
+            const hourlyLabels = Object.keys(chartData.hourly).map(h => `${h}h`);
+            new Chart(document.getElementById('hourlyChart'), {
+                type: 'bar',
+                data: {
+                    labels: hourlyLabels,
+                    datasets: [{
+                        label: 'Abonnements',
+                        data: Object.values(chartData.hourly),
+                        backgroundColor: 'rgba(105, 108, 255, 0.7)',
+                        borderColor: 'rgba(105, 108, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 3. Graphique évolution annuelle (Bar)
+            new Chart(document.getElementById('growthChart'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(chartData.growth),
+                    datasets: [{
+                        label: 'Abonnements',
+                        data: Object.values(chartData.growth),
+                        backgroundColor: Object.keys(chartData.growth).map((year, i) => 
+                            `hsl(${i * 30}, 70%, 60%)`
+                        ),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        </script>
+
     </body>
 
 </html>

@@ -30,6 +30,8 @@
         <link rel="stylesheet" href="/assets/css/index.css">
         <link rel="stylesheet" href="{{asset("assets/css/header-fixed.css")}}">
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
 
     <body>
@@ -53,133 +55,86 @@
                                         <h4 class="mb-sm-0 font-size-18">TABLEAU DE BORD</h4>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="card mini-stats-wid">
-                                                <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Nombres Etudiants</p>
-                                                            <h4 class="mb-0">{{ $etudiants->count() }}</h4>
-                                                        </div>
-
-                                                        <div class="flex-shrink-0 align-self-center">
-                                                            <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                                                <span class="avatar-title">
-                                                                    <i class="bx bxs-user-detail font-size-24"></i>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    @if(session('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('success') }}
+                                            <button class="close font-weight-normal" data-dismiss="alert">x</button>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="card mini-stats-wid">
-                                                <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Nombres Etablissements</p>
-                                                            <h4 class="mb-0">{{ $etablissements->count() }}</h4>
-                                                        </div>
+                                    @endif
 
-                                                        <div class="flex-shrink-0 align-self-center ">
-                                                            <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                                                <span class="avatar-title rounded-circle bg-primary">
-                                                                    <i class="bx bx-layout font-size-24"></i>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="card mini-stats-wid">
-                                                <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Nombres Abonnés</p>
-                                                            <h4 class="mb-0">{{ $newsletters->count() }}</h4>
-                                                        </div>
+                                    @if(session('error'))
+                                        <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                                    @endif
 
-                                                        <div class="flex-shrink-0 align-self-center">
-                                                            <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                                                <span class="avatar-title rounded-circle bg-primary">
-                                                                    <i class="bx bx-detail font-size-24"></i>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="card mini-stats-wid">
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <div class="card card-chart">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Nombres Inscriptions</p>
-                                                            <h4 class="mb-0">{{ $inscriptions->count() }}</h4>
-                                                        </div>
-
-                                                        <div class="flex-shrink-0 align-self-center">
-                                                            <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                                                <span class="avatar-title rounded-circle bg-primary">
-                                                                    <i class="bx bx-task font-size-24"></i>
-                                                                </span>
-                                                            </div>
-                                                        </div>
+                                                    <h5 class="card-title text-primary mb-4">
+                                                        <i class="fas fa-users me-2"></i>Étudiants inscrits par mois
+                                                    </h5>
+                                                    <div class="chart-container">
+                                                        <canvas id="studentsChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="card mini-stats-wid">
+                                    <!-- Ligne Établissements -->
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <div class="card card-chart">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card mini-stats-wid">
-                                                <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
+                                                    <h5 class="card-title text-success mb-4">
+                                                        <i class="fas fa-school me-2"></i>Établissements créés par mois
+                                                    </h5>
+                                                    <div class="chart-container">
+                                                        <canvas id="establishmentsChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="card mini-stats-wid">
+                                    <!-- Ligne Newsletters -->
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <div class="card card-chart">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
+                                                    <h5 class="card-title text-info mb-4">
+                                                        <i class="fas fa-envelope me-2"></i>Abonnements newsletters par mois
+                                                    </h5>
+                                                    <div class="chart-container">
+                                                        <canvas id="newslettersChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="card mini-stats-wid">
+                                    </div>
+
+                                    <!-- Ligne Inscriptions (2 colonnes) -->
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-4">
+                                            <div class="card card-chart">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
+                                                    <h5 class="card-title text-warning mb-4">
+                                                        <i class="fas fa-file-upload me-2"></i>Inscriptions envoyées
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="sentRegistrationsChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-4">
+                                            <div class="card card-chart">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-danger mb-4">
+                                                        <i class="fas fa-check-circle me-2"></i>Inscriptions traitées
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="processedRegistrationsChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -353,6 +308,95 @@
         <script src="assets/js/app.js"></script>
         <!-- En fin de body -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configuration commune
+            const chartConfig = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            };
+
+            // 1. Graphique Étudiants
+            createChart(
+                'studentsChart',
+                'bar',
+                @json(array_keys($studentData)),
+                @json(array_values($studentData)),
+                'rgba(54, 162, 235, 0.7)',
+                'Nombre d\'étudiants'
+            );
+
+            // 2. Graphique Établissements
+            createChart(
+                'establishmentsChart',
+                'line',
+                @json(array_keys($establishmentData)),
+                @json(array_values($establishmentData)),
+                'rgba(75, 192, 192, 0.7)',
+                'Nombre d\'établissements'
+            );
+
+            // 3. Graphique Newsletters
+            createChart(
+                'newslettersChart',
+                'bar',
+                @json(array_keys($newsletterData)),
+                @json(array_values($newsletterData)),
+                'rgba(153, 102, 255, 0.7)',
+                'Abonnements newsletters'
+            );
+
+            // 4. Graphiques Inscriptions
+            createChart(
+                'sentRegistrationsChart',
+                'doughnut',
+                @json(array_keys($sentRegistrations)),
+                @json(array_values($sentRegistrations)),
+                'rgba(255, 159, 64, 0.7)',
+                'Inscriptions envoyées'
+            );
+
+            createChart(
+                'processedRegistrationsChart',
+                'doughnut',
+                @json(array_keys($processedRegistrations)),
+                @json(array_values($processedRegistrations)),
+                'rgba(255, 99, 132, 0.7)',
+                'Inscriptions traitées'
+            );
+
+            // Fonction de création de graphique
+            function createChart(elementId, type, labels, data, bgColor, label) {
+                const ctx = document.getElementById(elementId).getContext('2d');
+                new Chart(ctx, {
+                    type: type,
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: label,
+                            data: data,
+                            backgroundColor: bgColor,
+                            borderColor: bgColor.replace('0.7', '1'),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: chartConfig
+                });
+            }
+        });
+        </script>
+
     </body>
 
 </html>

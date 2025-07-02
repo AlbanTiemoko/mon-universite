@@ -30,6 +30,8 @@
         <link rel="stylesheet" href="/assets/css/index.css">
         <link rel="stylesheet" href="{{asset("assets/css/header-fixed.css")}}">
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
 
     <body>
@@ -48,25 +50,61 @@
                                         <h4 class="mb-sm-0 font-size-18">ESPACE UTILISATEURS</h4>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col">
+                                    <div class="row mb-4">
+                                        <!-- Répartition des types d'utilisateurs -->
+                                        <div class="col-md-6">
                                             <div class="card mini-stats-wid">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
+                                                    <h5 class="card-title mb-3">
+                                                        <i class="fas fa-users-cog me-2"></i>Répartition des utilisateurs
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="userTypesChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+
+                                        <!-- Statut de vérification email -->
+                                        <div class="col-md-6">
                                             <div class="card mini-stats-wid">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
+                                                    <h5 class="card-title mb-3">
+                                                        <i class="fas fa-envelope me-2"></i>Vérification email
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="verificationChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Deuxième ligne de graphiques -->
+                                    <div class="row mb-4">
+                                        <!-- Utilisateurs vérifiés -->
+                                        <div class="col-md-6">
+                                            <div class="card mini-stats-wid">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-3">
+                                                        <i class="fas fa-user-check me-2"></i>Utilisateurs vérifiés
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="verifiedUsersChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Inscriptions mensuelles -->
+                                        <div class="col-md-6">
+                                            <div class="card mini-stats-wid">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-3">
+                                                        <i class="fas fa-chart-line me-2"></i>Inscriptions par mois
+                                                    </h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="registrationChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -152,6 +190,130 @@
         <script src="assets/js/app.js"></script>
         <!-- En fin de body -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chartData = @json($chartData);
+            const monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+
+            // 1. Graphique types d'utilisateurs
+            new Chart(document.getElementById('userTypesChart'), {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(chartData.user_types),
+                    datasets: [{
+                        data: Object.values(chartData.user_types),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw} (${context.percentage.toFixed(1)}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 2. Graphique statut de vérification
+            new Chart(document.getElementById('verificationChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(chartData.verification_status),
+                    datasets: [{
+                        data: Object.values(chartData.verification_status),
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(255, 206, 86, 0.7)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%'
+                }
+            });
+
+            // 3. Graphique utilisateurs vérifiés
+            new Chart(document.getElementById('verifiedUsersChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Administrateurs', 'Étudiants'],
+                    datasets: [{
+                        label: 'Vérifiés',
+                        data: Object.values(chartData.verified_users),
+                        backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 4. Graphique inscriptions mensuelles
+            const monthlyLabels = Object.keys(chartData.registration_trend.admins).map(m => monthNames[m-1]);
+            new Chart(document.getElementById('registrationChart'), {
+                type: 'line',
+                data: {
+                    labels: monthlyLabels,
+                    datasets: [
+                        {
+                            label: 'Administrateurs',
+                            data: Object.values(chartData.registration_trend.admins),
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Étudiants',
+                            data: Object.values(chartData.registration_trend.etudiants),
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        </script>
+
     </body>
 
 </html>

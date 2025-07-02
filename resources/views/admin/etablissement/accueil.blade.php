@@ -30,6 +30,8 @@
         <link rel="stylesheet" href="/assets/css/index.css">
         <link rel="stylesheet" href="{{asset("assets/css/header-fixed.css")}}">
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
 
     <body>
@@ -61,13 +63,37 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col">
-                                            <div class="card mini-stats-wid">
+                                        <!-- Graphique de visibilité -->
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
+                                                    <h5 class="card-title">Statut de visibilité</h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="visibilityChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Graphique par ville -->
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Top 5 des villes</h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="villeChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Graphique tendance création -->
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Création par année</h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="creationChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,6 +204,92 @@
         <script src="assets/js/app.js"></script>
         <!-- En fin de body -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Données passées depuis le contrôleur
+            const chartData = @json($chartData);
+
+            // 1. Graphique de visibilité (Doughnut)
+            new Chart(document.getElementById('visibilityChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Visible', 'Non visible'],
+                    datasets: [{
+                        data: Object.values(chartData.visibility),
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 99, 132, 0.7)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // 2. Graphique par ville (Bar)
+            new Chart(document.getElementById('villeChart'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(chartData.by_ville),
+                    datasets: [{
+                        label: "Nombre d'établissements",
+                        data: Object.values(chartData.by_ville),
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 3. Graphique tendance (Line)
+            new Chart(document.getElementById('creationChart'), {
+                type: 'line',
+                data: {
+                    labels: Object.keys(chartData.creation_trend),
+                    datasets: [{
+                        label: "Établissements créés",
+                        data: Object.values(chartData.creation_trend),
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 2,
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+        </script>
+
     </body>
 
 </html>

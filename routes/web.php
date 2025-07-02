@@ -58,6 +58,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/nouvel-etablissement', [App\Http\Controllers\DashboardController::class, 'nouveau_etablissement'])->name('nouvel.etablissement');
     Route::get('/liste-etablissements', [App\Http\Controllers\DashboardController::class, 'liste_etablissement'])->name('liste.etablissement');
 
+    Route::get('/statistiques-filieres', [App\Http\Controllers\DashboardController::class, 'accueil_filiere'])->name('statistique.filiere');
     Route::get('/liste-filieres', [App\Http\Controllers\DashboardController::class, 'liste_filiere'])->name('liste.filiere');
     Route::get('/nouvelle-filiere', [App\Http\Controllers\DashboardController::class, 'nouvelle_filiere'])->name('nouvelle.filiere');
 
@@ -82,6 +83,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
 
     Route::get('/nouvelle-commune', [App\Http\Controllers\DashboardController::class, 'nouvelle_commune'])->name('nouvelle.commune');
     Route::get('/liste-communes', [App\Http\Controllers\DashboardController::class, 'liste_commune'])->name('liste.commune');
+    Route::get('/statistiques-configuration', [App\Http\Controllers\DashboardController::class, 'accueil_configuration'])->name('statistique.configuration');
 
     Route::get('/nouveau-mode', [App\Http\Controllers\DashboardController::class, 'nouveau_etude'])->name('nouveau.mode');
     Route::get('/liste-modes-etude', [App\Http\Controllers\DashboardController::class, 'liste_mode_etude'])->name('liste.mode.etude');

@@ -33,6 +33,18 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-lg-6 col-xl-5">
+
+                        @if(session('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                                <button class="close font-weight-normal" data-dismiss="alert">x</button>
+                            </div>
+                        @endif
+
+                        @if(session('error'))
+                            <p class="bg-danger p-3 text-white">{{ session('error') }}</p>
+                        @endif
+
                         <div class="card overflow-hidden">
                             <div class="bg-warning bg-soft">
                                 <div class="row">

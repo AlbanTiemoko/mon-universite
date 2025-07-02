@@ -25,9 +25,10 @@
 
   @include('components.menu')
 
-    <div class="slide pb-3">
+    <div class="slide pb-3"> 
       <div class="embed-responsive embed-responsive-16by9">
-        <iframe width="700" height="510" class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+        <iframe width="500" height="310" class="embed-responsive-item"
+            src="https://www.youtube.com/embed/zpOULjyy-n8" allowfullscreen></iframe>
       </div>
   </div>
     <div class="bg-white">

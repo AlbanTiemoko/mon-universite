@@ -23,9 +23,8 @@ class DashboardController extends Controller
         $etablissements = Etablissement::all();
         $newsletters = Newsletter::all();
         $inscriptions = Inscription::all();
-        $inscription_envoye = Inscription::where('etat', 1)->get();
-        $inscription_traite = Inscription::where('etat', 2)->get();
-        return view("admin.index", compact('etudiants', 'etablissements', 'newsletters', 'inscriptions', 'inscription_envoye', 'inscription_traite'));
+
+        return view("admin.index", compact('etudiants', 'etablissements', 'newsletters', 'inscriptions'));
     }
 
     public function connexion()
@@ -47,7 +46,24 @@ class DashboardController extends Controller
             'villeCommune.commune'
         ])->get()->where('etat', 0);
 
-        return view("admin.etablissement.accueil", compact('etablissement_visible', 'etablissement_non_visible'));
+        // Nouvelles données pour les graphiques
+        $chartData = [
+            'visibility' => [
+                'visible' => $etablissement_visible->count(),
+                'non_visible' => $etablissement_non_visible->count()
+            ],
+            'by_ville' => $etablissement_visible->groupBy('villeCommune.ville.nom')
+                ->map->count()
+                ->sortDesc()
+                ->take(5),
+            'creation_trend' => Etablissement::selectRaw('YEAR(created_at) as year, COUNT(*) as count')
+                ->groupBy('year')
+                ->orderBy('year')
+                ->get()
+                ->pluck('count', 'year')
+        ];
+
+        return view("admin.etablissement.accueil", compact('etablissement_visible', 'etablissement_non_visible', 'chartData'));
     }
 
     public function nouveau_etablissement()
@@ -110,6 +126,38 @@ class DashboardController extends Controller
         return view("admin.etablissement.liste", compact('etablissements'));
     }
 
+    public function accueil_filiere(Request $request)
+    {
+        $chartData = [
+            'by_type' => Filiere::with('type_filiere')
+                ->get()
+                ->groupBy('type_filiere.nom')
+                ->map->count()
+                ->sortDesc(),
+            
+            'by_etablissement' => Filiere::with('etablissement')
+                ->get()
+                ->groupBy('etablissement.nom')
+                ->map->count()
+                ->sortDesc()
+                ->take(5),
+                
+            'montant_moyen' => Filiere::selectRaw('type_filiere_id, AVG(montant_annuel) as moyenne')
+                ->groupBy('type_filiere_id')
+                ->with('type_filiere')
+                ->get()
+                ->pluck('moyenne', 'type_filiere.nom'),
+                
+            'duree_distribution' => Filiere::selectRaw('duree, COUNT(*) as count')
+                ->groupBy('duree')
+                ->orderBy('duree')
+                ->get()
+                ->pluck('count', 'duree')
+        ];
+
+        return view("admin.filiere.accueil", compact('chartData'));
+    }
+    
     public function liste_filiere(Request $request)
     {
         $type_filiere = TypeFiliere::all();
@@ -186,7 +234,29 @@ class DashboardController extends Controller
     {
         $inscriptions = Inscription::where('etat', 1)->get();
         $inscription_traite = Inscription::where('etat', 2)->get();
-        return view("admin.inscription.accueil", compact('inscriptions', 'inscription_traite'));
+
+        // Nouvelles données pour les graphiques
+        $chartData = [
+            'status' => [
+                'Envoyées' => $inscriptions->count(),
+                'Traitées' => $inscription_traite->count()
+            ],
+            'monthly' => Inscription::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->whereYear('created_at', date('Y'))
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get()
+                ->pluck('count', 'month'),
+            'by_etablissement' => Inscription::with('etablissement')
+                ->where('etat', 2)
+                ->get()
+                ->groupBy('etablissement.nom')
+                ->map->count()
+                ->sortDesc()
+                ->take(5)
+        ];
+
+        return view("admin.inscription.accueil", compact('inscriptions', 'inscription_traite', 'chartData'));
     }
 
     public function liste_inscription(Request $request)
@@ -236,7 +306,27 @@ class DashboardController extends Controller
     {
         $avis_non_visible = Avis::where('etat', 0)->get();
         $avis_visible = Avis::where('etat', 1)->get();
-        return view("admin.avis.accueil", compact('avis_non_visible', 'avis_visible'));
+
+        $chartData = [
+            'status' => [
+                'Visible' => $avis_visible->count(),
+                'Non visible' => $avis_non_visible->count()
+            ],
+            'monthly' => Avis::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->whereYear('created_at', date('Y'))
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get()
+                ->pluck('count', 'month'),
+            'ratings' => Avis::where('etat', 1)
+                ->selectRaw('note, COUNT(*) as count')
+                ->groupBy('note')
+                ->orderBy('note')
+                ->get()
+                ->pluck('count', 'note')
+        ];
+
+        return view("admin.avis.accueil", compact('avis_non_visible', 'avis_visible', 'chartData'));
     }
 
     public function liste_avis(Request $request)
@@ -295,14 +385,65 @@ class DashboardController extends Controller
 
         $newsletters = $query->orderBy('created_at', 'desc')->simplePaginate($perPage);
 
-        return view("admin.newsletter.accueil", compact('newsletters'));
+        $chartData = [
+            'monthly' => Newsletter::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->whereYear('created_at', date('Y'))
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get()
+                ->pluck('count', 'month'),
+            'hourly' => Newsletter::selectRaw('HOUR(created_at) as hour, COUNT(*) as count')
+                ->groupBy('hour')
+                ->orderBy('hour')
+                ->get()
+                ->pluck('count', 'hour'),
+            'growth' => Newsletter::selectRaw('YEAR(created_at) as year, COUNT(*) as count')
+                ->groupBy('year')
+                ->orderBy('year')
+                ->get()
+                ->pluck('count', 'year')
+        ];
+
+        return view("admin.newsletter.accueil", compact('newsletters', 'chartData'));
     }
 
     public function accueil_users()
     {
         $admins = Admin::latest()->paginate(15);
         $etudiants = User::latest()->paginate(15);
-        return view("admin.users.accueil", compact('admins', 'etudiants'));
+
+        $chartData = [
+            'user_types' => [
+                'Administrateurs' => Admin::count(),
+                'Étudiants' => User::count()
+            ],
+            'registration_trend' => [
+                'admins' => Admin::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                    ->whereYear('created_at', date('Y'))
+                    ->groupBy('month')
+                    ->orderBy('month')
+                    ->get()
+                    ->pluck('count', 'month'),
+                'etudiants' => User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                    ->whereYear('created_at', date('Y'))
+                    ->groupBy('month')
+                    ->orderBy('month')
+                    ->get()
+                    ->pluck('count', 'month')
+            ],
+            'verified_users' => [
+                'admins' => Admin::whereNotNull('email_verified_at')->count(),
+                'etudiants' => User::whereNotNull('email_verified_at')->count()
+            ],
+            'verification_status' => [
+                'Verified' => User::whereNotNull('email_verified_at')->count() + 
+                            Admin::whereNotNull('email_verified_at')->count(),
+                'Unverified' => User::whereNull('email_verified_at')->count() + 
+                            Admin::whereNull('email_verified_at')->count()
+            ]
+        ];
+
+        return view("admin.users.accueil", compact('admins', 'etudiants', 'chartData'));
     }
 
     public function liste_admin(Request $request)
@@ -442,5 +583,54 @@ class DashboardController extends Controller
     public function nouveau_etude()
     {
         return view("admin.configuration.etude.nouveau");
+    }
+
+    public function accueil_configuration()
+    {
+        // Statistiques pour les villes
+        $villeStats = [
+            'total' => Ville::count(),
+            'recent' => Ville::where('created_at', '>=', now()->subMonth())->count(),
+            'by_month' => Ville::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->whereYear('created_at', date('Y'))
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get()
+                ->pluck('count', 'month')
+        ];
+
+        // Statistiques pour les communes
+        $communeStats = [
+            'total' => Commune::count(),
+            'with_ville' => Commune::has('ville')->count(),
+            'by_ville' => Commune::with('ville')
+                ->selectRaw('ville_id, COUNT(*) as count')
+                ->groupBy('ville_id')
+                ->get()
+                ->mapWithKeys(function($item) {
+                    return [$item->ville->nom => $item->count];
+                })
+                ->sortDesc()
+                ->take(5)
+        ];
+
+        // Statistiques pour les modes d'étude
+        $modeEtudeStats = [
+            'total' => ModeEtude::count(),
+            'recent' => ModeEtude::where('created_at', '>=', now()->subMonth())->count(),
+            'popular' => ModeEtude::withCount('filieres')
+                ->orderBy('filieres_count', 'desc')
+                ->take(3)
+                ->get()
+                ->mapWithKeys(function($item) {
+                    return [$item->nom => $item->filieres_count];
+                })
+        ];
+
+        return view("admin.configuration.accueil", compact(
+            'villeStats',
+            'communeStats',
+            'modeEtudeStats'
+        ));
     }
 }

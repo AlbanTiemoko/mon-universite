@@ -30,6 +30,8 @@
         <link rel="stylesheet" href="/assets/css/index.css">
         <link rel="stylesheet" href="{{asset("assets/css/header-fixed.css")}}">
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
 
     <body>
@@ -49,13 +51,37 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col">
+                                        <!-- Statut des inscriptions -->
+                                        <div class="col-xl-4 col-md-6">
                                             <div class="card mini-stats-wid">
                                                 <div class="card-body">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1">
-                                                            <p class="text-muted fw-medium">Espace pour graphique</p>
-                                                        </div>
+                                                    <h5 class="card-title mb-4">Statut des inscriptions</h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="statusChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Évolution mensuelle -->
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card mini-stats-wid">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-4">Évolution mensuelle</h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="monthlyChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Top établissements -->
+                                        <div class="col-xl-4 col-md-6">
+                                            <div class="card mini-stats-wid">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-4">Top établissements</h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="etablissementChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -182,6 +208,94 @@
         <script src="assets/js/app.js"></script>
         <!-- En fin de body -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Données passées depuis le contrôleur
+            const chartData = @json($chartData);
+            const monthNames = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+
+            // 1. Graphique statut (Doughnut)
+            new Chart(document.getElementById('statusChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(chartData.status),
+                    datasets: [{
+                        data: Object.values(chartData.status),
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(75, 192, 192, 0.7)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // 2. Graphique mensuel (Line)
+            const monthlyLabels = Object.keys(chartData.monthly).map(m => monthNames[m-1]);
+            new Chart(document.getElementById('monthlyChart'), {
+                type: 'line',
+                data: {
+                    labels: monthlyLabels,
+                    datasets: [{
+                        label: 'Inscriptions',
+                        data: Object.values(chartData.monthly),
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 2,
+                        tension: 0.1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // 3. Graphique établissements (Bar)
+            new Chart(document.getElementById('etablissementChart'), {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(chartData.by_etablissement),
+                    datasets: [{
+                        label: 'Inscriptions traitées',
+                        data: Object.values(chartData.by_etablissement),
+                        backgroundColor: 'rgba(255, 159, 64, 0.7)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        </script>
+
     </body>
 
 </html>
