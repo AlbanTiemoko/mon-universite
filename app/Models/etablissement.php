@@ -4,9 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Notifications\Notifiable;
 
 class Etablissement extends Model
 {
+    use Notifiable;
+
+    public function routeNotificationForMail()
+    {
+        return $this->email; // suppose que la colonne email existe
+    }
+    
     protected $fillable = [
         'reference', 'nom', 'numero', 'deuxieme_numero', 'email', 'logo', 'cover', 'longitude', 'latitude', 'url_spot',
         'description', 'etat', 'user_updated_id', 'slug',

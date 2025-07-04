@@ -32,7 +32,7 @@
       <div class="container mb-4">
         <div class="row">
             <div class="col text-center">
-                <a href="{{ route('blog') }}" class="btn btn-outline-success rounded-pill mr-3 font-weight-bold text_info">Tous les articles</a><a href="filieres_school.html" class="btn btn-outline-success rounded-pill ml-5 font-weight-bold text_filière">FAQs</a>
+                <a href="{{ route('blog') }}" class="btn btn-outline-success rounded-pill mr-3 font-weight-bold text_info">Tous les articles</a>
             </div>
         </div>
       </div>
@@ -52,12 +52,15 @@
                     
                 </div>
                 <div class="col-md-6">
-                    <form class="form-inline" action="traitement.php">
-                        <label for="exampleFormControlSelect1">Recherche par année :</label>
-                            <select class="form-control ml-3 w-50" id="exampleFormControlSelect1">
-                                <option>Toutes les années</option>
-                                <option>2020</option>
-                                <option>2021</option>
+                    <form class="form-inline" amethod="GET" action="{{ route('blog') }}">
+                        <label for="annee">Recherche par année :</label>
+                            <select class="form-control ml-3 w-50" name="annee" id="annee" onchange="this.form.submit()">
+                                <option value="">Toutes les années</option>
+                                @foreach($years as $year)
+                                    <option value="{{ $year }}" {{ request('annee') == $year ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endforeach
                             </select>
                     </form>
                 </div>
@@ -69,76 +72,28 @@
       </div>
       <div class="bg-white">
         <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="row align-items-center">
-                <div class="col card-group mb-5 text-left">
-                  <div class="col-md-3">
-                    <div class="card">
-                      <img class="card-img-top" src="..." alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      </div>
-                      <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                      </div>
+          @foreach($articles->chunk(2) as $articleChunk)
+            <div class="row mb-4">
+              @foreach($articleChunk as $article)
+                <div class="col-md-6">
+                  <div class="card h-100">
+                    <img class="card-img-top" src="{{ asset($article->image) }}" alt="Image article">
+                    <div class="card-body">
+                      <h5 class="card-title"><a href="{{ route('description.article', $article->slug) }}">{{ $article->titre }}</a></h5>
+                      <p class="card-text">
+                        {{ \Illuminate\Support\Str::limit(strip_tags($article->description), 150, '...') }}
+                      </p>
+                    </div>
+                    <div class="card-footer">
+                      <small class="text-muted">{{ $article->date }}</small>
                     </div>
                   </div>
-                  <div class="col-md-3">
-                    <div class="card">
-                      <img class="card-img-top" src="..." alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      </div>
-                      <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="card">
-                      <img class="card-img-top" src="..." alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      </div>
-                      <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="card">
-                      <img class="card-img-top" src="..." alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      </div>
-                      <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                      </div>
-                    </div>
-                  </div>
+                </div>
+              @endforeach
             </div>
-          </div>
+          @endforeach
 
-              <ul class="pagination justify-content-center pb-4">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
-                </li>
-                <li class="page-item active" aria-current="page">
-                  <a class="page-link" href="filieres.html">1 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Suivant</a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          {{ $articles->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
         </div>
       </div>
 

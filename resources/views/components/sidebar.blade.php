@@ -8,7 +8,7 @@
         </a>
 
         <a href="{{ route('statistique.etablissement') }}" class="link {{ Route::is('statistique.etablissement') ? 'text-primary' : '' }}">
-            <p class="font-weight-bold h6 {{ Route::is('statistique.etablissement') || route::is('nouvel.etablissement') || Route::is('liste.etablissement') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('statistique.etablissement') || route::is('nouvel.etablissement') || Route::is('liste.etablissement') || Route::is('liste.demandes') ? 'text-primary' : '' }}">
                 <i class="bx bx-layout pr-2 pb-1"></i> Etablissements
             </p>
         </a>
@@ -16,7 +16,10 @@
             <h6 class="pb-1 {{ Route::is('nouvel.etablissement') ? 'text-primary' : '' }}">Nouveau</h6>
         </a>
         <a href="{{ route('liste.etablissement') }}" class="link {{ Route::is('liste.etablissement') ? 'text-primary' : '' }}">
-            <h6 class="pb-3 {{ Route::is('liste.etablissement') ? 'text-primary' : '' }}">Liste</h6>
+            <h6 class="pb-1 {{ Route::is('liste.etablissement') ? 'text-primary' : '' }}">Liste</h6>
+        </a>
+        <a href="{{ route('liste.demandes') }}" class="link {{ Route::is('liste.demandes') ? 'text-primary' : '' }}">
+            <h6 class="pb-3 {{ Route::is('liste.demandes') ? 'text-primary' : '' }}">Liste demandes</h6>
         </a>
 
         <a href="{{ route('statistique.filiere') }}" class="link {{ Route::is('liste.filiere') ? 'text-primary' : '' }}">
@@ -85,7 +88,19 @@
             <h6 class="pb-1 {{ Route::is('liste.commune') ? 'text-primary' : '' }}">Communes/Quartiers</h6>
         </a>
         <a href="{{ route('liste.mode.etude') }}" class="link {{ Route::is('liste.mode.etude') ? 'text-primary' : '' }}">
-            <h6 class="pb-1 {{ Route::is('liste.mode.etude') ? 'text-primary' : '' }}">Mode etudes</h6>
+            <h6 class="pb-3 {{ Route::is('liste.mode.etude') ? 'text-primary' : '' }}">Mode etudes</h6>
+        </a>
+
+        <a href="{{ route('liste.article') }}" class="link {{ Route::is('liste.commune') ? 'text-primary' : '' }}">
+            <p class="font-weight-bold h6 {{ Route::is('liste.article') || Route::is('nouvel.article') ? 'text-primary' : '' }}">
+                <i class="bx bx-edit-alt pr-2 pb-1"></i> Articles
+            </p>
+        </a>
+        <a href="{{ route('nouvel.article') }}" class="link {{ Route::is('nouvel.article') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('nouvel.article') ? 'text-primary' : '' }}">Nouvel</h6>
+        </a>
+        <a href="{{ route('liste.article') }}" class="link {{ Route::is('liste.article') ? 'text-primary' : '' }}">
+            <h6 class="pb-1 {{ Route::is('liste.article') ? 'text-primary' : '' }}">Liste</h6>
         </a>
         <a href="#" class="link"><h6></h6></a>
         

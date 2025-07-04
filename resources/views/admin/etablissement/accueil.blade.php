@@ -64,7 +64,7 @@
 
                                     <div class="row">
                                         <!-- Graphique de visibilité -->
-                                        <div class="col-xl-4 col-md-6">
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Statut de visibilité</h5>
@@ -76,7 +76,7 @@
                                         </div>
 
                                         <!-- Graphique par ville -->
-                                        <div class="col-xl-4 col-md-6">
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Top 5 des villes</h5>
@@ -88,12 +88,24 @@
                                         </div>
 
                                         <!-- Graphique tendance création -->
-                                        <div class="col-xl-4 col-md-6">
+                                        <div class="col-xl-3 col-md-6">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Création par année</h5>
                                                     <div class="chart-container" style="height: 250px;">
                                                         <canvas id="creationChart"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Graphique demande etablissement -->
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Demandes Apparition</h5>
+                                                    <div class="chart-container" style="height: 250px;">
+                                                        <canvas id="demandesChart"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -287,6 +299,55 @@
                     }
                 }
             });
+
+        // 4. Graphique des demandes (Bar stacked)
+        new Chart(document.getElementById('demandesChart'), {
+            type: 'bar',
+            data: {
+                labels: chartData.demandes.map(d => 
+                    new Date(2025, d.month-1).toLocaleString('default', {month: 'short'})
+                ),
+                datasets: [
+                    {
+                        label: 'En attente',
+                        data: chartData.demandes.map(d => d.en_attente),
+                        backgroundColor: 'rgba(255, 206, 86, 0.7)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Approuvées',
+                        data: chartData.demandes.map(d => d.approuvees),
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Rejetées',
+                        data: chartData.demandes.map(d => d.rejetees),
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
         });
         </script>
 

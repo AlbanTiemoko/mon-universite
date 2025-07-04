@@ -9,6 +9,7 @@ use App\Models\Etablissement;
 use App\Models\Avis;
 use App\Models\Filiere;
 use App\Models\ModeEtude;
+use App\Models\Article;
 
 
 class AcceuilController extends Controller
@@ -187,9 +188,29 @@ class AcceuilController extends Controller
         return view("formation_qualifiante", compact('communes', 'villes', 'etablissements', 'formation'));
     }
 
-    public function blog()
+    public function blog(Request $request)
     {
-        return view("all_article");
+        $query = Article::query();
+
+        if ($request->filled('annee')) {
+            $query->whereYear('date', $request->annee);
+        }
+
+        $articles = $query->paginate(10);
+
+        // Récupérer toutes les années distinctes des articles
+        $years = Article::selectRaw('YEAR(date) as year')
+                        ->distinct()
+                        ->orderBy('year', 'desc')
+                        ->pluck('year');
+
+        return view('all_article', compact('articles', 'years'));
+    }
+
+    public function description_article($slug)
+    {
+        $article = Article::where('slug', $slug)->firstOrFail();
+        return view("article_lu", compact('article'));
     }
 
     public function connexion_student()

@@ -182,23 +182,24 @@
                   <div class="line-height-reduced font-weight-bold text-secondary">MON UNIVERSITE</div><br>
                   <div class="h2 font-weight-bold mb-4">Faites une demande d'apparition gratuitement</div>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto error fugiat doloribus aperiam, sapiente deserunt assumenda, id autem at odio corrupti possimus delectus asperiores dolore similique tempora tempore minima nesciunt. </p>
-                  <form>
+                  <form method="POST" action="{{ route('store.demande') }}">
+                    @csrf
                     <div class="row mb-3">
                       <div class="col">
-                        <input type="text" class="form-control" placeholder="Non de votre établissement">
+                        <input type="text" name="nom" class="form-control" placeholder="Non de votre établissement">
                       </div>
                       <div class="col">
-                        <input type="text" class="form-control" placeholder="Numéro de téléphone etablissement">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col">
-                        <input type="text" class="form-control" placeholder="Adresse de votre établissement">
+                        <input type="text" name="numero" class="form-control" placeholder="Numéro de téléphone etablissement">
                       </div>
                     </div>
                     <div class="row mb-3">
                       <div class="col">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Description de votre etablissement"></textarea>
+                        <input type="text" name="adresse" class="form-control" placeholder="Adresse de votre établissement">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col">
+                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="4" placeholder="Description de votre etablissement"></textarea>
                       </div>
                     </div>
                     <div class="row mb-3">

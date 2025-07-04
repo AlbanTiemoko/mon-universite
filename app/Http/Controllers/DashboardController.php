@@ -14,6 +14,8 @@ use App\Models\Etablissement;
 use App\Models\Inscription;
 use App\Models\Filiere;
 use App\Models\Avis;
+use App\Models\Article;
+use App\Models\DemandeEtablissement;
 
 class DashboardController extends Controller
 {
@@ -60,7 +62,20 @@ class DashboardController extends Controller
                 ->groupBy('year')
                 ->orderBy('year')
                 ->get()
-                ->pluck('count', 'year')
+                ->pluck('count', 'year'),
+
+        // Nouveau: Statistiques des demandes (version corrigée)
+        'demandes' => DemandeEtablissement::selectRaw(
+            "COUNT(*) as total, " .
+            "SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as en_attente, " .
+            "SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approuvees, " .
+            "SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejetees, " .
+            "MONTH(created_at) as month"
+        )
+        ->whereYear('created_at', date('Y'))
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get(),
         ];
 
         return view("admin.etablissement.accueil", compact('etablissement_visible', 'etablissement_non_visible', 'chartData'));
@@ -632,5 +647,60 @@ class DashboardController extends Controller
             'communeStats',
             'modeEtudeStats'
         ));
+    }
+
+    public function nouvel_article()
+    {
+        return view("admin.blog.nouvel");
+    }
+
+    public function liste_articles(Request $request)
+    {
+        $perPage = $request->input('par_page', 20);
+        
+        $query = Article::query();
+
+        if ($request->filled('query')) {
+            $query->where('reference', 'like', '%' . $request->input('query') . '%');
+        }
+
+        if ($request->filled('titre')) {
+            $query->where('titre', 'like', '%' . $request->input('titre') . '%');
+        }
+
+        if ($request->filled('date')) {
+            $query->where('date', 'like', '%' . $request->input('date') . '%');
+        }
+
+        $articles = $query->orderBy('created_at', 'desc')->simplePaginate($perPage);
+
+        return view("admin.blog.liste", compact('articles'));
+    }
+
+    public function liste_demande(Request $request)
+    {
+        $perPage = $request->input('par_page', 20);
+        
+        $query = DemandeEtablissement::query();
+
+        if ($request->filled('query')) {
+            $query->where('reference', 'like', '%' . $request->input('query') . '%');
+        }
+
+        if ($request->filled('nom')) {
+            $query->where('nom', 'like', '%' . $request->input('nom') . '%');
+        }
+
+        if ($request->filled('numero')) {
+            $query->where('numero', 'like', '%' . $request->input('numero') . '%');
+        }
+
+        if ($request->filled('created_at')) {
+            $query->where('created_at', 'like', '%' . $request->input('created_at') . '%');
+        }
+
+        $demandes = $query->orderBy('created_at', 'desc')->simplePaginate($perPage);
+
+        return view("admin.etablissement.liste-demandes", compact('demandes'));
     }
 }

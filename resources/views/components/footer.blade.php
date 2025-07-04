@@ -23,7 +23,7 @@
           </div>
           <div class="row bg-white">
             <div class="col-md-3 ml-n3 pt-1">
-              <a href="index.html"><img src="/assets/Images/Footer logo.png" alt=""></a>
+              <a href="{{ route('accueil') }}"><img src="/assets/Images/footer_logo.png" alt=""></a>
               <p class="pl-4 h6 mt-2">Site Officiel sur l'enseignement supérieure en Côte d'Ivoire pour les etudiants</p>
               <p class="pl-4 mt-4">Copyright {{ date('Y') }} ©</p>
               <a href="#" target="_blank"> <i class="fa fa-facebook-square pl-4 mt-1"></i></a> <a href="#" target="_blank"><i class="fa fa-linkedin-square pl-4 mt-1"></i></a>

@@ -35,6 +35,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/inscription', [App\Http\Controllers\AcceuilController::class, 'inscription'])->name('inscription');
 });
 
+//**Detail Article */
+Route::get('/article/{slug}/details', [App\Http\Controllers\AcceuilController::class, 'description_article'])->name('description.article');
+
+
 /**Tableaud de bord Admin */
 // Routes Admin
 Route::prefix('admin')->group(function () {
@@ -57,6 +61,7 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/statistiques-etablissements', [App\Http\Controllers\DashboardController::class, 'accueil_etablissement'])->name('statistique.etablissement');
     Route::get('/nouvel-etablissement', [App\Http\Controllers\DashboardController::class, 'nouveau_etablissement'])->name('nouvel.etablissement');
     Route::get('/liste-etablissements', [App\Http\Controllers\DashboardController::class, 'liste_etablissement'])->name('liste.etablissement');
+    Route::get('/liste-des-demandes-apparitions', [App\Http\Controllers\DashboardController::class, 'liste_demande'])->name('liste.demandes');
 
     Route::get('/statistiques-filieres', [App\Http\Controllers\DashboardController::class, 'accueil_filiere'])->name('statistique.filiere');
     Route::get('/liste-filieres', [App\Http\Controllers\DashboardController::class, 'liste_filiere'])->name('liste.filiere');
@@ -87,6 +92,9 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
 
     Route::get('/nouveau-mode', [App\Http\Controllers\DashboardController::class, 'nouveau_etude'])->name('nouveau.mode');
     Route::get('/liste-modes-etude', [App\Http\Controllers\DashboardController::class, 'liste_mode_etude'])->name('liste.mode.etude');
+
+    Route::get('/nouvel-article', [App\Http\Controllers\DashboardController::class, 'nouvel_article'])->name('nouvel.article');
+    Route::get('/liste-articles', [App\Http\Controllers\DashboardController::class, 'liste_articles'])->name('liste.article');
 
     //**Configuration */
     Route::post('/nouveau-mode', [App\Http\Controllers\ConfigurationController::class, 'store'])->name('store.mode.etude');
@@ -121,6 +129,14 @@ Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
     Route::get('/etablissement/{id}/edit', [App\Http\Controllers\EtablissementController::class, 'edit'])->name('etablissement.edit');
     Route::put('/etablissement/{id}/edit', [App\Http\Controllers\EtablissementController::class, 'update'])->name('etablissement.update');
 
+    Route::post('/demande-apparition/{id}', [App\Http\Controllers\EtablissementController::class, 'destroy_demandes'])->name('destroy.demande');
+
+    //**Articles */
+    Route::post('/nouvel-article', [App\Http\Controllers\BlogController::class, 'store'])->name('store.article');
+    Route::post('/article/{id}', [App\Http\Controllers\BlogController::class, 'destroy'])->name('destroy.article');
+    Route::get('/article/{id}/edit', [App\Http\Controllers\BlogController::class, 'edit'])->name('article.edit');
+    Route::put('/article/{id}/edit', [App\Http\Controllers\BlogController::class, 'update'])->name('article.update');
+    
 });
 
 //**Avis */
@@ -134,4 +150,17 @@ Route::post('/demande-inscription', [App\Http\Controllers\InscriptionController:
 //**Newsletters */
 Route::post('/nouvelle-demande-newsletter', [App\Http\Controllers\NewsletterController::class, 'store'])->name('store.newsletter');
 
+Route::get('/test-email', function() {
+    try {
+        Mail::raw('Ceci est un test', function ($message) {
+            $message->to('alban.tiemoko.diallo@gmail.com')
+                    ->subject('Test SMTP');
+        });
+        return "Email envoyé ! Vérifiez votre boîte de réception.";
+    } catch (\Exception $e) {
+        return "Erreur : " . $e->getMessage();
+    }
+});
 
+//**Demandes apparitions */
+Route::post('/nouvel-demande', [App\Http\Controllers\EtablissementController::class, 'store_demande'])->name('store.demande');

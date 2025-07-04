@@ -58,7 +58,7 @@
       <div class="row my-lg-5 d-flex justify-content-center">
           <div class="col-md-4 align-self-center">
               <a href="{{ route('accueil') }}">
-              <img src="/assets/Images/LOGO.png" alt="logo"></a>
+              <img src="/assets/Images/logonew.png" alt="logo"></a>
           </div>
           <div class="col-md-8 align-self-center image-container">
               <img src="/assets/Images/MOOV-LEADERBOARD-ENCART-22012021-2.jpg" alt="bannière publicitaire">

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Etablissement;
 use App\Models\Ville;
 use App\Models\Commune;
+use App\Models\DemandeEtablissement;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -168,4 +169,29 @@ class EtablissementController extends Controller
             ->with('success', 'Établissement mis à jour avec succès');
     }
 
+    //**Demande etablissement */
+    public function store_demande(Request $request)
+    {
+        // Générer automatiquement la référence
+        $last = DemandeEtablissement::latest()->first();
+        $nextId = $last ? $last->id + 1 : 1;
+        $reference = 'DAE-' . $nextId;
+        
+        $demande = DemandeEtablissement::create([
+            'reference' => $reference,
+            'nom' => $request->nom,
+            'adresse' => $request->adresse,
+            'numero' => $request->numero,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->back()
+            ->with("success", "Votre demande a été envoyé avec succès");
+    }
+
+    public function destroy_demandes($id)
+    {
+        DemandeEtablissement::where("id","=",$id)->delete();
+        return redirect()->route('liste.demandes')->with("success","Demande supprimée avec succès.");
+    }
 }
